@@ -63,5 +63,7 @@ Here is the format
 
 Notes:
 - only files defined in the `sources` array will be processed
+- `sources` can be both files or directories
+- all items in `sources` should be valid paths relative to the root path of the repo
 - `title_prefix` is appended to the beginning of every md file generated (same for appending `title_suffix` to end)
 - only files with different title names should be defined in the `titles` array.
