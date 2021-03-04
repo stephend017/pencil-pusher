@@ -33,4 +33,35 @@ This should be an environment variable which points to a [github personal access
 
 **required: `true`**
 
+**default: `./ghapd.config.json`**
+
 This is the location of the config file. The config file is where you define which source files should be documented and how they should map to individual wiki pages.
+
+# Config File
+This action requires that the calling repository define a file called `ghapd.config.json` where the auto doc generator can process which source files to document and how to map those source files to wiki pages. 
+
+Here is the format
+```json
+{
+  "sources": [
+    "mypackage/mymodule1/myfile1.py",
+    "mypackage/mymodule2/"
+  ],
+  "title_prefix": "MyPackage",
+  "title_suffix": "API",
+  "titles": [
+    {
+      "source_file": "mypackage/mymodule1/myfile1.py",
+      "title": "Utilities",
+      "use_prefix": true,
+      "use_suffix": false
+    }
+  ]
+}
+
+```
+
+Notes:
+- only files defined in the `sources` array will be processed
+- `title_prefix` is appended to the beginning of every md file generated (same for appending `title_suffix` to end)
+- only files with different title names should be defined in the `titles` array.
