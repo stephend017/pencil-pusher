@@ -9,7 +9,7 @@ jobs:
         id: selftest
 
         # Put your action repo here
-        uses: stephend017/ghapd@master
+        uses: stephend017/ghapd@main
 
       - name: Check outputs
         run: |
