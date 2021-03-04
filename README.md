@@ -21,6 +21,7 @@ This action requires that the calling repository define a file called `ghapd.con
 Here is the format
 ```json
 {
+  "languages": ["python"],
   "sources": [
     "mypackage/mymodule1/myfile1.py",
     "mypackage/mymodule2/"
@@ -39,9 +40,16 @@ Here is the format
 
 ```
 
-Notes:
-- only files defined in the `sources` array will be processed
-- `sources` can be both files or directories
-- all items in `sources` should be valid paths relative to the root path of the repo
-- `title_prefix` is appended to the beginning of every md file generated (same for appending `title_suffix` to end)
-- only files with different title names should be defined in the `titles` array.
+| Config | Type | Required | Default | Description |
+| --- | --- | --- | --- | --- | 
+| languages | `Array<string>` | `true` | `["python"]` | All the languages to process for documentation (currently only python is supported) | 
+| sources | `Array<string>` | `true` | `[]` | relative locations to the root of the project of source files to process for documentation. This can be both files and directories. | 
+| title_prefix | `string` | `false` | `""` | The text to be appended to the front of each title for each source file wiki doc generated | 
+| title_suffix | `string` | `false` | `""` | The text to be appended to the back of each title for each source file wiki doc generated | 
+| titles | `Array<json>` | `false` | `[]` | A dictionary for defining custom titles to be generated | 
+| titles.source_file | `string` | `true` | `""` | the relative location of the source file being given a custom title (must be a file) |
+| titles.title | `string` | `false` | `""` | replacement title to use for this source file | 
+| titles.use_prefix | `string` | `false` | `""` | flag if prefix defined above should be used in this title (will be ommitted if `title_prefix` is not defined) | 
+| titles.use_suffix | `string` | `false` | `""` | flag if suffix defined above should be used in this title (will be ommitted if `titel_suffix` is not defined) |
+
+
