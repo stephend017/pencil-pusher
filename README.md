@@ -3,39 +3,12 @@ A template repository for python packages
 
 # Inputs
 
-### `owner_name`
-
-**type: `string`**
-
-**required: `true`**
-
-This is the username of the repository owner
-
-### `repository_name`
-
-**type: `string`**
-
-**required: `true`**
-
-This is the name of the repository being accessed
-
-### `personal_access_token`
-
-**type: `string`**
-
-**required: `true`**
-
-This should be an environment variable which points to a [github personal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) with full repository permissions checked.
-
-### `config_file`
-
-**type: `string`**
-
-**required: `true`**
-
-**default: `./ghapd.config.json`**
-
-This is the location of the config file. The config file is where you define which source files should be documented and how they should map to individual wiki pages.
+| Input Name            | Type     | Required | Default                 | Description                                                                                                                                                             |
+|-----------------------|----------|----------|-------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| owner_name            | `string` | `true`   | `None`                  | The username of the repository owner                                                                                                                                    |
+| repository_name       | `string` | `true`   | `None`                  | The name of the repository being accessed                                                                                                                               |
+| personal_access_token | `string` | `true`   | `None`                  | A [github personal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) with full repository permissions checked. |
+| config_file           | `string` | `false`  | `"./ghapd.config.json"` | This is the location of the config file. The config file is where you define which source files should be documented and how they should map to individual wiki pages.  |
 
 # Config File
 This action requires that the calling repository define a file called `ghapd.config.json` where the auto doc generator can process which source files to document and how to map those source files to wiki pages. 
