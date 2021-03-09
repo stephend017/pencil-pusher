@@ -1,13 +1,24 @@
-name: "Python Github Action Template"
-description: "Get started with Python Github actions"
+name: "ghapd"
+description: "ghapd (Github Automated Python Documenter): A Github Action that creates and publishes source documentation to the repository's wiki"
 author: "Stephen Davis"
 inputs:
-  myInput:
-    description: "Input to use"
-    default: "world"
-outputs:
-  myOutput:
-    description: "Output from the action"
+  owner_name:
+    description: "The username of the repository owner"
+    required: true
+    default: ""
+  repository_name:
+    description: "The name of the repository being accessed"
+    required: true
+    default: ""
+  personal_access_token:
+    description: "A github personal access token with full repository permissions checked."
+    required: true
+    default: ""
+  config_file:
+    description: "This is the location of the config file. The config file is where you define which source files should be documented and how they should map to individual wiki pages"
+    required: true
+    default: "ghapd.config.json"
+
 runs:
   using: "docker"
   image: "Dockerfile"
