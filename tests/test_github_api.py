@@ -75,7 +75,7 @@ def test_full_send():
     with open(os.path.join(path, "Home.md"), "a+") as fp:
         fp.write("* testing string \n\n")
 
-    ghapi.full_update(path)
+    ghapi.full_update(OWNER, "ghapd.wiki", path)
 
     time.sleep(1)
     shutil.rmtree(path)

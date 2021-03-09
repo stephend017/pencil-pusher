@@ -29,12 +29,6 @@ class GithubAPI:
     def clone_repo(self, owner: str, repo: str, local_path: str = ""):
         """
         """
-        cwd = os.path.abspath(
-            os.path.join(
-                os.path.dirname(os.path.abspath("./setup.py")), local_path
-            )
-        )
-
         url = f"https://github.com/{owner}/{repo}.git"
         if self._has_token:
             url = f"https://{owner}:{self._pat}@github.com/{owner}/{repo}.git"
@@ -45,6 +39,11 @@ class GithubAPI:
             stderr=subprocess.PIPE,
         )
 
+    def full_update(self, owner: str, repo: str, path: str):
+        """
+        stages, commits and pushes all changes to a git repo
+        in the given directory
+        """
         subprocess.Popen(
             [
                 "git",
@@ -53,23 +52,11 @@ class GithubAPI:
                 "origin",
                 f"https://{owner}:{self._pat}@github.com/{owner}/{repo}.git",
             ],
-            cwd=cwd,
+            cwd=path,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
         )
 
-        subprocess.Popen(
-            ["git", "remote", "-v"],
-            cwd=cwd,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-        )
-
-    def full_update(self, path: str):
-        """
-        stages, commits and pushes all changes to a git repo
-        in the given directory
-        """
         subprocess.Popen(
             ["git", "config", "user.name", "ghapd"],
             cwd=path,
