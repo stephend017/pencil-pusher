@@ -1,4 +1,4 @@
-# ghapd
+# ghapd 🤖
 ghapd (Github Automated Python Documenter): A Github Action that creates and publishes source documentation to the repository's wiki.
 
 # Tech Stack
