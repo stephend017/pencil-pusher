@@ -1,17 +1,16 @@
 name: Integration Test
-on: [push]
+
+on:
+  push:
+    branches: [ main ]
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@main
-      - name: Self test
-        id: selftest
-
         # Put your action repo here
-        uses: stephend017/ghapd@main
-
-      # TODO add this back when things have been implemented
-      # - name: Check outputs
-      #   run: |
-      #     test "${{ steps.selftest.outputs.myOutput }}" == "Hello world"
+        - uses: stephend017/ghapd@main
+          with:
+            owner_name: 'stephend017'
+            repository_name: 'repository_name'
+            personal_access_token: ${{ secrets.GH_PAT }}
