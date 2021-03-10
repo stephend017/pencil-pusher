@@ -12,5 +12,5 @@ jobs:
         - uses: stephend017/ghapd@main
           with:
             owner_name: 'stephend017'
-            repository_name: 'repository_name'
+            repository_name: 'ghapd'
             personal_access_token: ${{ secrets.GH_PAT }}
