@@ -1,7 +1,8 @@
 """
 File for processing and validating inputs
 """
-from os import environ
+from ghapd.github_api import GithubAPI
+from os import environ, stat
 from typing import Any, Dict, Tuple
 import yaml
 
@@ -33,6 +34,7 @@ class InputManager:
 
     def define(self):
         """"""
+        InputManager._sync_action_file()
         with open("./action.yml", "r") as fp:
             definition = yaml.safe_load(fp)
             for input_name, input_definition in definition["inputs"].items():
@@ -69,3 +71,13 @@ class InputManager:
     @staticmethod
     def _environ_key(name: str) -> str:
         return f"INPUT_{name.upper()}"
+
+    @staticmethod
+    def _sync_action_file():
+        """
+        """
+        content = GithubAPI.get_public_file(
+            "stephend017", "ghapd", "action.yml"
+        )
+        with open("./action.yml", "w") as fp:
+            fp.write(content)

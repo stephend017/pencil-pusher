@@ -96,7 +96,7 @@ class GithubAPI:
         g = Github()
         repo: Repository = g.get_repo(f"{owner}/{repo}")
         response: ContentFile = repo.get_contents(file_path)
-        return str(response.decoded_content)
+        return str(response.decoded_content, "utf-8")
 
     def _require_token(self):
         """
