@@ -52,7 +52,7 @@ class InputManager:
             if environ_key not in environ:
                 return False, f"Undefined input [{key}] provided"
             if value.required and (
-                environ[environ_key] is not None or environ[environ_key] != ""
+                environ[environ_key] is None or environ[environ_key] == ""
             ):
                 return (
                     False,
