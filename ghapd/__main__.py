@@ -11,8 +11,7 @@ def main():
     response = im.validate()
 
     if not response[0]:
-        # TODO print error (response[1]) idk
-        exit(1)
+        raise ValueError(response[1])
 
     Documenter.install()
     time.sleep(1)

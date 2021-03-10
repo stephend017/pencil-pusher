@@ -2,9 +2,10 @@
 File for processing and validating inputs
 """
 from ghapd.github_api import GithubAPI
-from os import environ, stat
+from os import environ
 from typing import Any, Dict, Tuple
 import yaml
+import time
 
 
 class InputDefinition:
@@ -81,3 +82,4 @@ class InputManager:
         )
         with open("./action.yml", "w") as fp:
             fp.write(content)
+        time.sleep(1)
