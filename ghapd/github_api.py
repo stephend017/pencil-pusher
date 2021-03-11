@@ -95,7 +95,8 @@ class GithubAPI:
         )
         o, e = p.communicate()
         if p.returncode != 0:
-            raise ValueError(str(e, "utf-8"))
+            print(str(e, "utf-8"))
+            assert False
 
         p = subprocess.Popen(
             ["git", "push"],
