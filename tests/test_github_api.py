@@ -80,3 +80,25 @@ def test_full_send():
     time.sleep(1)
     shutil.rmtree(path)
     time.sleep(1)
+
+
+def test_full_send_relative_path():
+    """
+    Tests that a repo can be automatically staged, committed and
+    pushed from a relative path
+    """
+    ghapi = GithubAPI(os.environ["GH_PAT"])
+    ghapi.clone_repo(OWNER, "ghapd.wiki", "../example-repo")
+
+    # python is slow and will not recognize the new directory right away
+    time.sleep(1)
+
+    # do a change
+    with open(os.path.join("../example-repo", "Home.md"), "a+") as fp:
+        fp.write("* testing string from relative \n\n")
+
+    ghapi.full_update(OWNER, "ghapd.wiki", "../example-repo")
+
+    time.sleep(1)
+    shutil.rmtree("../example-repo")
+    time.sleep(1)
