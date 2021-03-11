@@ -94,9 +94,7 @@ class GithubAPI:
             stderr=subprocess.PIPE,
         )
         o, e = p.communicate()
-        if p.returncode != 0:
-            print(str(e, "utf-8"))
-            assert False
+        assert p.returncode == 0, f'[{p.returncode}]: {str(o, "utf-8")}'
 
         p = subprocess.Popen(
             ["git", "push"],

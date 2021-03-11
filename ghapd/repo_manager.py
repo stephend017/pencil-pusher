@@ -40,12 +40,13 @@ class RepoManager:
         installs the python project in the source repo
         using the command pip install . (from source repo)
         """
-        subprocess.Popen(
+        p = subprocess.Popen(
             ["python3", "-m", "pip", "install", "."],
             cwd=self._repo_path,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
         )
+        p.communicate()
 
     def document(self, module: str = ""):
         """
@@ -63,11 +64,14 @@ class RepoManager:
         for sf in source_files:
             # get a relative path of the module (remove containing
             # directory and .py extension)
-            module_path = sf[sf.index(module) : -3]
+            module_path = sf[
+                sf.index(module) + len(module) + 1
+                if module == self._repo
+                else 0 : -3
+            ]
             # replace slashes with dots to conform
             # to python module import syntax
             module_path = module_path.replace("/", ".")
-
             Documenter.generate(module_path, module_path, self._wiki_path)
 
     def publish(self):
