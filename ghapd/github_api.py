@@ -44,7 +44,7 @@ class GithubAPI:
         stages, commits and pushes all changes to a git repo
         in the given directory
         """
-        subprocess.Popen(
+        p = subprocess.Popen(
             [
                 "git",
                 "remote",
@@ -56,37 +56,53 @@ class GithubAPI:
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
         )
+        p.communicate()
+        assert p.returncode == 0, "set remote failed"
 
-        subprocess.Popen(
+        p = subprocess.Popen(
             ["git", "config", "user.name", "ghapd"],
             cwd=path,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
         )
-        subprocess.Popen(
+        p.communicate()
+        assert p.returncode == 0, "config username failed"
+
+        p = subprocess.Popen(
             ["git", "config", "user.email", "<>"],
             cwd=path,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
         )
-        subprocess.Popen(
+        p.communicate()
+        assert p.returncode == 0, "config email failed"
+
+        p = subprocess.Popen(
             ["git", "add", "."],
             cwd=path,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
         )
-        subprocess.Popen(
+        p.communicate()
+        assert p.returncode == 0, "staging changes failed"
+
+        p = subprocess.Popen(
             ["git", "commit", "-m", '"Auto commit by ghapd"'],
             cwd=path,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
         )
-        subprocess.Popen(
+        p.communicate()
+        assert p.returncode == 0, "commit failed"
+
+        p = subprocess.Popen(
             ["git", "push"],
             cwd=path,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
         )
+        p.communicate()
+        assert p.returncode == 0, "push failed"
 
     @staticmethod
     def get_public_file(owner: str, repo: str, file_path: str) -> str:
