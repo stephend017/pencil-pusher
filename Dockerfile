@@ -19,19 +19,20 @@
 # NEW SHIT
 FROM ubuntu:latest
 
-RUN apt-get update \
-    && apt update \
-    && apt install software-properties-common \
-    && add-apt-repository ppa:deadsnakes/ppa \
-    && apt update \
-    && apt install python3.8 \
-    && apt install python3-pip \
-    && apt install git
+RUN apt-get update -y && \
+    apt-get install -y python3-pip python3-dev
 
-ADD . /container/app
-WORKDIR /container/app
+RUN apt update -y && \
+    apt install git -y
 
-COPY --from=builder /container/app /container/app
-WORKDIR /container/app
-ENV PYTHONPATH /container/app
-CMD ["/container/app/ghapd/__main__.py"]
+COPY ./requirements.txt /requirements.txt
+
+WORKDIR /
+
+RUN pip3 install -r requirements.txt
+
+COPY . /
+
+ENTRYPOINT [ "python3" ]
+
+CMD ["ghapd/__main__.py"]
