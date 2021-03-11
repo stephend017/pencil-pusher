@@ -33,9 +33,7 @@ RUN pip3 install -r requirements.txt
 
 COPY . /
 
-RUN ls /
-RUN ls /ghapd/
-RUN pip3 install .
+RUN python3 /setup.py install
 
 ENTRYPOINT [ "python3" ]
 
