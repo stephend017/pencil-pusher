@@ -12,5 +12,5 @@ jobs:
         - uses: stephend017/ghapd@main
           with:
             owner_name: 'stephend017'
-            repository_name: 'ghapd'
+            repository_name: 'discord_ritoman'
             personal_access_token: ${{ secrets.GH_PAT }}
