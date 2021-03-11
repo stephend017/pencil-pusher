@@ -35,4 +35,6 @@ COPY . /
 
 ENTRYPOINT [ "python3" ]
 
-CMD ["ghapd/ghapd/__main__.py"]
+RUN ls /
+
+CMD ["/ghapd/__main__.py"]
