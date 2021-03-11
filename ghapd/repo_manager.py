@@ -13,6 +13,7 @@ import shutil
 from ghapd.documenter import Documenter
 from ghapd.github_api import GithubAPI
 import logging
+import time
 
 logger = logging.getLogger("rm")
 logger.addHandler(logging.FileHandler("rm.log"))
@@ -73,6 +74,7 @@ class RepoManager:
             # to python module import syntax
             module_path = module_path.replace("/", ".")
             Documenter.generate(module_path, module_path, self._wiki_path)
+        time.sleep(1)
 
     def publish(self):
         """
