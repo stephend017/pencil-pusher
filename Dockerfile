@@ -20,11 +20,12 @@
 FROM ubuntu:latest
 
 RUN apt-get update \
-    && && apt update \
+    && apt update \
     && apt install software-properties-common \
     && add-apt-repository ppa:deadsnakes/ppa \
     && apt update \
     && apt install python3.8 \
+    && apt install python3-pip \
     && apt install git
 
 ADD . /container/app
