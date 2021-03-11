@@ -29,15 +29,14 @@ COPY ./requirements.txt /requirements.txt
 
 WORKDIR /
 
-RUN ls /
-RUN ls /ghapd/
-
 RUN pip3 install -r requirements.txt
-RUN pip3 install ghapd
 
 COPY . /
 
-ENTRYPOINT [ "python3" ]
+RUN ls /
+RUN ls /ghapd/
+RUN pip3 install .
 
+ENTRYPOINT [ "python3" ]
 
 CMD ["/ghapd/__main__.py"]
