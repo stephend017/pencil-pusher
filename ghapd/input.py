@@ -33,9 +33,9 @@ class InputManager:
         """"""
         self._input_definition: Dict[str, InputDefinition] = {}
 
-    def define(self):
+    def define(self, personal_access_token: str = ""):
         """"""
-        InputManager._sync_action_file()
+        InputManager._sync_action_file(personal_access_token)
         with open("./action.yml", "r") as fp:
             definition = yaml.safe_load(fp)
             for input_name, input_definition in definition["inputs"].items():
@@ -74,11 +74,11 @@ class InputManager:
         return f"INPUT_{name.upper()}"
 
     @staticmethod
-    def _sync_action_file():
+    def _sync_action_file(personal_access_token: str = ""):
         """
         """
         content = GithubAPI.get_public_file(
-            "stephend017", "ghapd", "action.yml"
+            "stephend017", "ghapd", "action.yml", personal_access_token
         )
         with open("./action.yml", "w") as fp:
             fp.write(content)

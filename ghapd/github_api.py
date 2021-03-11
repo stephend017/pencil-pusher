@@ -3,6 +3,7 @@ Wrapper class for managing complex github commands needed to be
 executed for this action
 """
 import subprocess
+from typing import ValuesView
 from github import Github
 from github.ContentFile import ContentFile
 from github.Repository import Repository
@@ -92,8 +93,9 @@ class GithubAPI:
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
         )
-        p.communicate()
-        assert p.returncode == 0, "commit failed"
+        o, e = p.communicate()
+        if p.returncode != 0:
+            raise ValueError(str(e, "utf-8"))
 
         p = subprocess.Popen(
             ["git", "push"],
@@ -105,11 +107,17 @@ class GithubAPI:
         assert p.returncode == 0, "push failed"
 
     @staticmethod
-    def get_public_file(owner: str, repo: str, file_path: str) -> str:
+    def get_public_file(
+        owner: str, repo: str, file_path: str, personal_access_token: str = ""
+    ) -> str:
         """
         Gets a file from a public repo
         """
-        g = Github()
+        g = (
+            Github()
+            if personal_access_token == ""
+            else Github(personal_access_token)
+        )
         repo: Repository = g.get_repo(f"{owner}/{repo}")
         response: ContentFile = repo.get_contents(file_path)
         return str(response.decoded_content, "utf-8")
