@@ -42,12 +42,13 @@ class RepoManager:
         using the command pip install . (from source repo)
         """
         p = subprocess.Popen(
-            ["python3", "-m", "pip", "install", "."],
+            ["python3", "-m", "pip", "install", '.'],
             cwd=self._repo_path,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
         )
-        p.communicate()
+        o, e = p.communicate()
+        print(str(e, 'utf-8'))
 
     def document(self, module: str = ""):
         """

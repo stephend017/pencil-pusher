@@ -1,5 +1,7 @@
 import subprocess
 import logging
+import importlib
+
 
 logger = logging.getLogger("documenter")
 logger.addHandler(logging.FileHandler("documenter.log"))
@@ -28,14 +30,14 @@ class Documenter:
         name title as the documentation output
         """
         options = "{renderer: {type: markdown,descriptive_class_title: false,render_toc: true}}"
-
         if not output_dir.endswith("/"):
             output_dir += "/"
 
         fp = open(f"{output_dir}{title}.md", "w")
-        subprocess.Popen(
+        p = subprocess.Popen(
             ["pydoc-markdown", "-m", f"{module}", options],
             stdout=fp,
             stderr=subprocess.PIPE,
         )
         fp.close()
+        p.communicate()
