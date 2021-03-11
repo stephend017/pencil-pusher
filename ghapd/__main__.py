@@ -3,6 +3,7 @@ from ghapd.documenter import Documenter
 from ghapd.input import InputManager
 from ghapd.github_api import GithubAPI
 from ghapd.repo_manager import RepoManager
+import os
 
 
 def main():

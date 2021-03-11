@@ -15,7 +15,9 @@ def test_get_public_file():
     """
     file_path = "action.yml"
 
-    contents = GithubAPI.get_public_file(OWNER, REPO, file_path)
+    contents = GithubAPI.get_public_file(
+        OWNER, REPO, file_path, os.environ["GH_PAT"]
+    )
 
     assert 'name: "ghapd"' in contents
 
@@ -25,7 +27,7 @@ def test_clone_repo():
     Tests that a repo can be cloned successfully to a
     local location
     """
-    ghapi = GithubAPI()
+    ghapi = GithubAPI(os.environ["GH_PAT"])
     ghapi.clone_repo(OWNER, REPO, "example-repo")
     path = os.path.join(ROOT_DIR, "example-repo")
 
@@ -47,7 +49,7 @@ def test_clone_repo_external():
     used in tandem without having to deal with git potentially
     interacting with both of them
     """
-    ghapi = GithubAPI()
+    ghapi = GithubAPI(os.environ["GH_PAT"])
     ghapi.clone_repo(OWNER, REPO, "../example-repo")
     path = os.path.join(ROOT_DIR, "../example-repo")
 

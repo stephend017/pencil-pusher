@@ -1,5 +1,6 @@
 from unittest import mock
 from ghapd.input import InputManager
+import os
 
 
 @mock.patch(
@@ -16,7 +17,7 @@ def test_input_manager():
     Validates that this method is working correctly
     """
     im = InputManager()
-    im.define()
+    im.define(os.environ["GH_PAT"])
 
     assert im.validate()
 
