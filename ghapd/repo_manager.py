@@ -75,7 +75,9 @@ class RepoManager:
         Publishes the generated documentation to the
         wiki repo
         """
-        self._gh.full_update(self._owner, self._repo, self._wiki_path)
+        self._gh.full_update(
+            self._owner, f"{self._repo}.wiki", self._wiki_path
+        )
 
     def cleanup(self):
         """
