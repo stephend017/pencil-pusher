@@ -20,9 +20,9 @@ class FileUtil:
                 if item.endswith(ext):
                     result.append(path + "/" + item)
                     break
-            if os.path.isdir(item):
+            if os.path.isdir(path + "/" + item):
                 result.extend(
-                    FileUtil.query_directory(item, include_extensions)
+                    FileUtil.query_directory(path + "/" + item + '/', include_extensions)
                 )
 
         return result

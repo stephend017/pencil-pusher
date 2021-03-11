@@ -93,8 +93,10 @@ class GithubAPI:
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
         )
-        o, e = p.communicate()
-        assert p.returncode == 0, f'[{p.returncode}]: {str(o, "utf-8")}'
+        p.communicate()
+        if p.returncode == 1:
+            print('all docs are up to date')
+            return 
 
         p = subprocess.Popen(
             ["git", "push"],
