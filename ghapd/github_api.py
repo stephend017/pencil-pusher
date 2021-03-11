@@ -3,12 +3,10 @@ Wrapper class for managing complex github commands needed to be
 executed for this action
 """
 import subprocess
-from typing import ValuesView
 from github import Github
 from github.ContentFile import ContentFile
 from github.Repository import Repository
 import logging
-import os
 
 
 logger = logging.getLogger("ghapi")
@@ -95,8 +93,8 @@ class GithubAPI:
         )
         p.communicate()
         if p.returncode == 1:
-            print('all docs are up to date')
-            return 
+            print("all docs are up to date")
+            return
 
         p = subprocess.Popen(
             ["git", "push"],
