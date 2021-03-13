@@ -1,7 +1,6 @@
 from ghapd.file_util import FileUtil
 from ghapd.documenter import Documenter
 import os
-import time
 from ghapd.github_api import GithubAPI
 from ghapd.repo_manager import RepoManager
 import logging
@@ -24,13 +23,10 @@ def test_repo_manager_simple_config():
     rm = RepoManager(owner, repo, ghapi)
 
     rm.setup()
-    time.sleep(1)
 
     rm.install()
-    time.sleep(1)
 
     rm.document("biit_server")
-    time.sleep(1)
     # no publish, just testing
 
     files_to_check = FileUtil.query_directory(

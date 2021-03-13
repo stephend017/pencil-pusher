@@ -2,7 +2,7 @@
 Wrapper class for managing complex github commands needed to be
 executed for this action
 """
-import subprocess
+from ghapd.process_util import ProcessUtil
 from github import Github
 from github.ContentFile import ContentFile
 from github.Repository import Repository
@@ -32,18 +32,14 @@ class GithubAPI:
         if self._has_token:
             url = f"https://{owner}:{self._pat}@github.com/{owner}/{repo}.git"
 
-        subprocess.Popen(
-            ["git", "clone", f"{url}", f"{local_path}"],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-        )
+        ProcessUtil.execute(["git", "clone", f"{url}", f"{local_path}"])
 
     def full_update(self, owner: str, repo: str, path: str):
         """
         stages, commits and pushes all changes to a git repo
         in the given directory
         """
-        p = subprocess.Popen(
+        ProcessUtil.execute(
             [
                 "git",
                 "remote",
@@ -52,58 +48,22 @@ class GithubAPI:
                 f"https://{owner}:{self._pat}@github.com/{owner}/{repo}.git",
             ],
             cwd=path,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
         )
-        p.communicate()
-        assert p.returncode == 0, "set remote failed"
 
-        p = subprocess.Popen(
-            ["git", "config", "user.name", "ghapd"],
-            cwd=path,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-        )
-        p.communicate()
-        assert p.returncode == 0, "config username failed"
+        ProcessUtil.execute(["git", "config", "user.name", "ghapd"], cwd=path)
 
-        p = subprocess.Popen(
-            ["git", "config", "user.email", "<>"],
-            cwd=path,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-        )
-        p.communicate()
-        assert p.returncode == 0, "config email failed"
+        ProcessUtil.execute(["git", "config", "user.email", "<>"], cwd=path)
 
-        p = subprocess.Popen(
-            ["git", "add", "."],
-            cwd=path,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-        )
-        p.communicate()
-        assert p.returncode == 0, "staging changes failed"
+        ProcessUtil.execute(["git", "add", "."], cwd=path)
 
-        p = subprocess.Popen(
-            ["git", "commit", "-m", '"Auto commit by ghapd"'],
-            cwd=path,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
+        returncode: int = ProcessUtil.execute(
+            ["git", "commit", "-m", '"Auto commit by ghapd"'], cwd=path
         )
-        p.communicate()
-        if p.returncode == 1:
+        if returncode == 1:
             print("all docs are up to date")
             return
 
-        p = subprocess.Popen(
-            ["git", "push"],
-            cwd=path,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-        )
-        p.communicate()
-        assert p.returncode == 0, "push failed"
+        ProcessUtil.execute(["git", "push"], cwd=path)
 
     @staticmethod
     def get_public_file(

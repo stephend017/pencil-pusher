@@ -1,6 +1,5 @@
-import subprocess
+from ghapd.process_util import ProcessUtil
 import logging
-import importlib
 
 
 logger = logging.getLogger("documenter")
@@ -16,10 +15,8 @@ class Documenter:
         to the python version being used to execute
         the commands
         """
-        subprocess.Popen(
-            ["python3", "-m", "pip", "install", "pydoc-markdown"],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
+        ProcessUtil.execute(
+            ["python3", "-m", "pip", "install", "pydoc-markdown"]
         )
 
     @staticmethod
@@ -34,10 +31,7 @@ class Documenter:
             output_dir += "/"
 
         fp = open(f"{output_dir}{title}.md", "w")
-        p = subprocess.Popen(
-            ["pydoc-markdown", "-m", f"{module}", options],
-            stdout=fp,
-            stderr=subprocess.PIPE,
+        ProcessUtil.execute(
+            ["pydoc-markdown", "-m", f"{module}", options], stdout=fp
         )
         fp.close()
-        p.communicate()

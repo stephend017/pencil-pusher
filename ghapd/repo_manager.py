@@ -7,13 +7,12 @@ This includes
 - installing a repo's python project
 
 """
+from ghapd.process_util import ProcessUtil
 from ghapd.file_util import FileUtil
-import subprocess
 import shutil
 from ghapd.documenter import Documenter
 from ghapd.github_api import GithubAPI
 import logging
-import time
 
 logger = logging.getLogger("rm")
 logger.addHandler(logging.FileHandler("rm.log"))
@@ -41,14 +40,9 @@ class RepoManager:
         installs the python project in the source repo
         using the command pip install . (from source repo)
         """
-        p = subprocess.Popen(
-            ["python3", "-m", "pip", "install", '.'],
-            cwd=self._repo_path,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
+        ProcessUtil.execute(
+            ["python3", "-m", "pip", "install", "."], cwd=self._repo_path
         )
-        o, e = p.communicate()
-        print(str(e, 'utf-8'))
 
     def document(self, module: str = ""):
         """
@@ -75,7 +69,6 @@ class RepoManager:
             # to python module import syntax
             module_path = module_path.replace("/", ".")
             Documenter.generate(module_path, module_path, self._wiki_path)
-        time.sleep(1)
 
     def publish(self):
         """
