@@ -1,6 +1,5 @@
 from ghapd.github_api import GithubAPI
 import os
-import time
 import shutil
 
 REPO = "ghapd"
@@ -31,13 +30,8 @@ def test_clone_repo():
     ghapi.clone_repo(OWNER, REPO, "example-repo")
     path = os.path.join(ROOT_DIR, "example-repo")
 
-    # python is slow and will not recognize the new directory right away
-    time.sleep(1)
-
-    print(path)
     assert os.path.exists(path)
     shutil.rmtree(path)
-    time.sleep(1)
 
 
 def test_clone_repo_external():
@@ -53,12 +47,8 @@ def test_clone_repo_external():
     ghapi.clone_repo(OWNER, REPO, "../example-repo")
     path = os.path.join(ROOT_DIR, "../example-repo")
 
-    # python is slow and will not recognize the new directory right away
-    time.sleep(1)
-
     assert os.path.exists(path)
     shutil.rmtree(path)
-    time.sleep(1)
 
 
 def test_full_send():
@@ -70,18 +60,13 @@ def test_full_send():
     ghapi.clone_repo(OWNER, "ghapd.wiki", "../example-repo")
     path = os.path.join(ROOT_DIR, "../example-repo")
 
-    # python is slow and will not recognize the new directory right away
-    time.sleep(1)
-
     # do a change
     with open(os.path.join(path, "Home.md"), "a+") as fp:
         fp.write("* testing string \n\n")
 
     ghapi.full_update(OWNER, "ghapd.wiki", path)
 
-    time.sleep(1)
     shutil.rmtree(path)
-    time.sleep(1)
 
 
 def test_full_send_relative_path():
@@ -92,15 +77,10 @@ def test_full_send_relative_path():
     ghapi = GithubAPI(os.environ["GH_PAT"])
     ghapi.clone_repo(OWNER, "ghapd.wiki", "../example-repo")
 
-    # python is slow and will not recognize the new directory right away
-    time.sleep(1)
-
     # do a change
     with open(os.path.join("../example-repo", "Home.md"), "a+") as fp:
         fp.write("* testing string from relative \n\n")
 
     ghapi.full_update(OWNER, "ghapd.wiki", "../example-repo")
 
-    time.sleep(1)
     shutil.rmtree("../example-repo")
-    time.sleep(1)
