@@ -36,4 +36,9 @@ class SourcesConfigParam(ConfigParamBase):
             if not isinstance(source, str):
                 raise ValueError("sources path must be of type string")
 
+            if "~" in source:
+                raise ValueError(
+                    "Illegal character [~] in source location. All source locations must be relative"
+                )
+
         return True

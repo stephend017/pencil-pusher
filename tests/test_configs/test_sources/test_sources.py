@@ -68,3 +68,15 @@ def test_get_values():
     assert len(expected) == len(response)
     for path in expected:
         assert path in response
+
+
+def test_tilde_in_source():
+    """
+    Tests that a source does not contain any non relative paths
+    i.e. tilde (~)
+    """
+    config_manager.load_config_file(
+        "./tests/test_configs/test_sources/sources05.config.json"
+    )
+    with pytest.raises(ValueError):
+        config_manager.validate()
