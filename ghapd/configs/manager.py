@@ -9,12 +9,13 @@ class ConfigManager(PluginManager):
     GET = "get"
 
     def __init__(self):
-        self._cofig_file_contents = None
+        self._config_file_contents = None
+        super().__init__()
 
     def validate(self):
         """
         """
-        if self._cofig_file_contents is None:
+        if self._config_file_contents is None:
             raise ValueError("Config file was not loaded")
 
         self.run(
@@ -28,7 +29,7 @@ class ConfigManager(PluginManager):
     def get(self, name: str):
         """
         """
-        if self._cofig_file_contents is None:
+        if self._config_file_contents is None:
             raise ValueError("Config file was not loaded")
 
         return self.run(
@@ -43,7 +44,7 @@ class ConfigManager(PluginManager):
         """
         """
         with open(file_path, "r") as fp:
-            self._cofig_file_contents = json.load(fp)
+            self._config_file_contents = json.load(fp)
 
     def get_on_search_params(self, name: str, **kwargs) -> Any:
         # return super().get_on_search_params(name, **kwargs)
