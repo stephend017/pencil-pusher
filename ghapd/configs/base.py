@@ -6,11 +6,6 @@ class ConfigParamBase(PluginBase):
     def __init__(self):
         self._is_defined = False
 
-    def on_register(self, data: Any):
-        # return super().on_register(data=data)
-        # TODO when fixed in util package can be removed
-        pass
-
     @final
     def on_find(self, data: Any) -> Any:
         # return super().on_find(data=data)

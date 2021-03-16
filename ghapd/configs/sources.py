@@ -13,7 +13,7 @@ class SourcesConfigParam(ConfigParamBase):
         and config type (string array)
     """
 
-    def on_search(self, data: Any):
+    def on_iterate(self, data: Any):
         """
         This is the validate function
         """

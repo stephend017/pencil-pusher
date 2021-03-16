@@ -18,9 +18,8 @@ class ConfigManager(PluginManager):
         if self._config_file_contents is None:
             raise ValueError("Config file was not loaded")
 
-        self.run(
-            "",
-            on_search_params={
+        self.iterate_all(
+            {
                 "type": ConfigManager.VALIDATE,
                 "contents": self._config_file_contents,
             },
