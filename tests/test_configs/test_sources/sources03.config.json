@@ -1,0 +1,8 @@
+{
+    "sources": [
+        "path1/*",
+        "path1/anotherpath/*",
+        "path1/anotherpath2/",
+        0
+    ]
+}
