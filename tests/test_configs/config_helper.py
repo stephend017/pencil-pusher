@@ -8,6 +8,7 @@ def load_config(
     sources=["path1/*", "/path1/subpath1/", "/path1/subpath1/file1.py"],
     title_prefix="valid_prefix",
     title_suffix="valid_suffix",
+    titles=[{"source": "mypath/mysourcefile.py", "title": "mynewtitle"}],
     exclude: List[str] = [],
 ):
     """
@@ -24,6 +25,7 @@ def load_config(
             "sources": sources,
             "title_prefix": title_prefix,
             "title_suffix": title_suffix,
+            "titles": titles,
         }
         for element in exclude:
             del data[element]
