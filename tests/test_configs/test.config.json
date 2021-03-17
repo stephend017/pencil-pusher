@@ -1,0 +1,1 @@
+{"sources": ["path1/*", "/path1/subpath1/", "/path1/subpath1/file1.py"], "title_prefix": "valid_prefix", "title_suffix": "mysuffix"}

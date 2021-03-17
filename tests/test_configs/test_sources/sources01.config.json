@@ -1,8 +1,0 @@
-{
-    "sources": [
-        "path1/*",
-        "path1/anotherpath/*",
-        "path1/anotherpath2/",
-        "path1/anotherpath2/file1.py"
-    ]
-}
