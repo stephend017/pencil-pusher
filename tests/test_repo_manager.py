@@ -26,7 +26,7 @@ def test_repo_manager_simple_config():
 
     rm.install()
 
-    rm.document("biit_server")
+    rm.document(sources=["biit_server/"])
     # no publish, just testing
 
     files_to_check = FileUtil.query_directory(
