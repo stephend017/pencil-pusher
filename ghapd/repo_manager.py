@@ -7,6 +7,7 @@ This includes
 - installing a repo's python project
 
 """
+from typing import List
 from ghapd.process_util import ProcessUtil
 from ghapd.file_util import FileUtil
 import shutil
@@ -46,6 +47,7 @@ class RepoManager:
 
     def document(
         self,
+        sources: List[str] = [],
         module: str = "",
         title_prefix: str = "",
         title_suffix: str = "",
@@ -60,34 +62,60 @@ class RepoManager:
             # use default module name (same as repo name)
             module = self._repo
 
-        source_files = FileUtil.query_directory(
-            "../" + self._repo + "/" + module, [".py"]
-        )
-        for sf in source_files:
-            # get a relative path of the module (remove containing
-            # directory and .py extension)
-            module_path = sf[
-                sf.index(module) + len(module) + 1
-                if module == self._repo
-                else 0 : -3
-            ]
-            # replace slashes with dots to conform
-            # to python module import syntax
-
-            module_python_path = module_path.replace("/", ".")
-            title = module_path
-
-            # use user defined titles if they exist
-            if title in titles:
-                title = titles[title]
+        for source in sources:
+            if source.endswith("/"):
+                # source is a directory
+                pass
             else:
-                title = module_python_path
+                # source is a file
+                if source.endswith(".py"):
+                    # remove extension
+                    source = source[:-3]
 
-            Documenter.generate(
-                module_python_path,
-                title_prefix + title + title_suffix,
-                self._wiki_path,
-            )
+                module_python_path = source.replace("/", ".")
+                title = source
+
+                # use user defined titles if they exist
+                if title in titles:
+                    title = titles[title]
+                else:
+                    title = module_python_path
+
+                Documenter.generate(
+                    module_python_path,
+                    title_prefix + title + title_suffix,
+                    self._wiki_path,
+                )
+
+        # source_files = FileUtil.query_directory(
+        #     "../" + self._repo + "/" + module, [".py"]
+        # )
+
+        # for sf in source_files:
+        #     # get a relative path of the module (remove containing
+        #     # directory and .py extension)
+        #     module_path = sf[
+        #         sf.index(module) + len(module) + 1
+        #         if module == self._repo
+        #         else 0 : -3
+        #     ]
+        #     # replace slashes with dots to conform
+        #     # to python module import syntax
+
+        #     module_python_path = module_path.replace("/", ".")
+        #     title = module_path
+
+        #     # use user defined titles if they exist
+        #     if title in titles:
+        #         title = titles[title]
+        #     else:
+        #         title = module_python_path
+
+        #     Documenter.generate(
+        #         module_python_path,
+        #         title_prefix + title + title_suffix,
+        #         self._wiki_path,
+        #     )
 
     def publish(self):
         """
