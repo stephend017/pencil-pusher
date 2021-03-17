@@ -31,10 +31,14 @@ def main():
     # transform titles config into usable dict
     titles = {}
     for element in config_manager.get("titles"):
-        titles[element["source"]] = element["title"]
+        if element["source"].endswith(".py"):
+            titles[element["source"][:-3]] = element["title"]
+        else:
+            titles[element["source"]] = element["title"]
 
     # only support default for now (repo_name = package_name)
     rm.document(
+        sources=config_manager.get("sources"),
         title_prefix=config_manager.get("title_prefix"),
         title_suffix=config_manager.get("title_suffix"),
         titles=titles,
