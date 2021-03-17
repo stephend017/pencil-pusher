@@ -45,7 +45,11 @@ class RepoManager:
         )
 
     def document(
-        self, module: str = "", title_prefix: str = "", title_suffix: str = ""
+        self,
+        module: str = "",
+        title_prefix: str = "",
+        title_suffix: str = "",
+        titles: dict = {},
     ):
         """
         documents all given modules in the source
@@ -69,10 +73,19 @@ class RepoManager:
             ]
             # replace slashes with dots to conform
             # to python module import syntax
-            module_path = module_path.replace("/", ".")
+
+            module_python_path = module_path.replace("/", ".")
+            title = module_path
+
+            # use user defined titles if they exist
+            if title in titles:
+                title = titles[title]
+            else:
+                title = module_python_path
+
             Documenter.generate(
-                module_path,
-                title_prefix + module_path + title_suffix,
+                module_python_path,
+                title_prefix + title + title_suffix,
                 self._wiki_path,
             )
 
