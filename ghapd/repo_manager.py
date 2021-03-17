@@ -44,7 +44,9 @@ class RepoManager:
             ["python3", "-m", "pip", "install", "."], cwd=self._repo_path
         )
 
-    def document(self, module: str = ""):
+    def document(
+        self, module: str = "", title_prefix: str = "", title_suffix: str = ""
+    ):
         """
         documents all given modules in the source
         repo (using config definition) then outputs
@@ -68,7 +70,11 @@ class RepoManager:
             # replace slashes with dots to conform
             # to python module import syntax
             module_path = module_path.replace("/", ".")
-            Documenter.generate(module_path, module_path, self._wiki_path)
+            Documenter.generate(
+                module_path,
+                title_prefix + module_path + title_suffix,
+                self._wiki_path,
+            )
 
     def publish(self):
         """

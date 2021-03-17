@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 
 with open("README.md", "r") as file:
@@ -12,5 +12,5 @@ setup(
     long_description=readme,
     author="myname",
     author_email="myemail",
-    packages=["ghapd"],
+    packages=find_packages(),
 )
