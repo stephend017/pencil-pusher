@@ -7,6 +7,7 @@ from ghapd.configs import config_manager
 def load_config(
     sources=["path1/*", "/path1/subpath1/", "/path1/subpath1/file1.py"],
     title_prefix="valid_prefix",
+    title_suffix="valid_suffix",
     exclude: List[str] = [],
 ):
     """
@@ -19,7 +20,11 @@ def load_config(
     """
 
     with open("./tests/test_configs/test.config.json", "w") as fp:
-        data = {"sources": sources, "title_prefix": title_prefix}
+        data = {
+            "sources": sources,
+            "title_prefix": title_prefix,
+            "title_suffix": title_suffix,
+        }
         for element in exclude:
             del data[element]
         json.dump(data, fp)
