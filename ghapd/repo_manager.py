@@ -62,60 +62,43 @@ class RepoManager:
             # use default module name (same as repo name)
             module = self._repo
 
+        file_list = []
+
         for source in sources:
             if source.endswith("/"):
                 # source is a directory
-                pass
+                directory_files = FileUtil.query_directory(
+                    f"../{self._repo}/{source[:-1]}", [".py"]
+                )
+                for sf in directory_files:
+                    relative_source_file = sf[
+                        sf.index(self._repo) + len(self._repo) + 1 : -3
+                    ]
+                    file_list.append(relative_source_file)
+
             else:
                 # source is a file
                 if source.endswith(".py"):
                     # remove extension
                     source = source[:-3]
 
-                module_python_path = source.replace("/", ".")
-                title = source
+                file_list.append(source)
 
-                # use user defined titles if they exist
-                if title in titles:
-                    title = titles[title]
-                else:
-                    title = module_python_path
+        for f in file_list:
+            module_python_path = f.replace("/", ".")
+            title = f
 
-                Documenter.generate(
-                    module_python_path,
-                    title_prefix + title + title_suffix,
-                    self._wiki_path,
-                )
+            # use user defined titles if they exist
+            if title in titles:
+                title = titles[title]
+            else:
+                title = module_python_path
 
-        # source_files = FileUtil.query_directory(
-        #     "../" + self._repo + "/" + module, [".py"]
-        # )
-
-        # for sf in source_files:
-        #     # get a relative path of the module (remove containing
-        #     # directory and .py extension)
-        #     module_path = sf[
-        #         sf.index(module) + len(module) + 1
-        #         if module == self._repo
-        #         else 0 : -3
-        #     ]
-        #     # replace slashes with dots to conform
-        #     # to python module import syntax
-
-        #     module_python_path = module_path.replace("/", ".")
-        #     title = module_path
-
-        #     # use user defined titles if they exist
-        #     if title in titles:
-        #         title = titles[title]
-        #     else:
-        #         title = module_python_path
-
-        #     Documenter.generate(
-        #         module_python_path,
-        #         title_prefix + title + title_suffix,
-        #         self._wiki_path,
-        #     )
+            Documenter.generate(
+                module_python_path,
+                title_prefix + title + title_suffix,
+                self._wiki_path,
+            )
 
     def publish(self):
         """
