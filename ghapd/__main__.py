@@ -28,11 +28,18 @@ def main():
     config_manager.load_config_file(f'{rm._repo_path}/{im.get("config_file")}')
     config_manager.validate()
 
+    # transform titles config into usable dict
+    titles = {}
+    for element in config_manager.get("titles"):
+        titles[element["source"]] = element["title"]
+
     # only support default for now (repo_name = package_name)
     rm.document(
         title_prefix=config_manager.get("title_prefix"),
         title_suffix=config_manager.get("title_suffix"),
+        titles=titles,
     )
+
     rm.publish()
     rm.cleanup()
 
