@@ -6,16 +6,8 @@ RUN apt-get update -y && \
 RUN apt update -y && \
     apt install git -y
 
-COPY ./requirements.txt /requirements.txt
-
 WORKDIR /
 
-RUN pip3 install -r requirements.txt
+RUN pip3 install pencil-pusher
 
-COPY . /
-
-RUN python3 /setup.py install
-
-ENTRYPOINT [ "python3" ]
-
-CMD ["/pencil_pusher/__main__.py"]
+CMD ["python3", "-m", "pencil_pusher"]
