@@ -14,8 +14,7 @@ setup(
     author="Stephen Davis",
     author_email="stephenedavis17@gmail.com",
     packages=find_packages(),
-    # TODO rename this later
-    url="https://github.com/stephend017/ghapd",
+    url="https://github.com/stephend017/pencil-pusher",
     license="MIT",
     classifiers=[
         "License :: OSI Approved :: MIT License",
