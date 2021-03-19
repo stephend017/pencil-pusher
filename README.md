@@ -13,10 +13,10 @@ pencil_pusher: A Github Action that creates and publishes source documentation t
 | owner_name            | `string` | `true`   | `None`                  | The username of the repository owner                                                                                                                                    |
 | repository_name       | `string` | `true`   | `None`                  | The name of the repository being accessed                                                                                                                               |
 | personal_access_token | `string` | `true`   | `None`                  | A [github personal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) with full repository permissions checked. |
-| config_file           | `string` | `false`  | `"./ghapd.config.json"` | This is the location of the config file. The config file is where you define which source files should be documented and how they should map to individual wiki pages.  |
+| config_file           | `string` | `false`  | `"./pencil_pusher.config.json"` | This is the location of the config file. The config file is where you define which source files should be documented and how they should map to individual wiki pages.  |
 
 # Config File
-This action requires that the calling repository define a file called `ghapd.config.json` where the auto doc generator can process which source files to document and how to map those source files to wiki pages. 
+This action requires that the calling repository define a file called `pencil_pusher.config.json` where the auto doc generator can process which source files to document and how to map those source files to wiki pages. 
 
 Here is the format
 ```json
