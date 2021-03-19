@@ -57,8 +57,7 @@ def test_full_send():
     pushed
     """
     ghapi = GithubAPI(os.environ["GH_PAT"])
-    # TODO repo has not been renamed yet
-    ghapi.clone_repo(OWNER, "ghapd.wiki", "../example-repo")
+    ghapi.clone_repo(OWNER, "pencil-pusher.wiki", "../example-repo")
     path = os.path.join(ROOT_DIR, "../example-repo")
 
     # do a change
@@ -76,12 +75,12 @@ def test_full_send_relative_path():
     pushed from a relative path
     """
     ghapi = GithubAPI(os.environ["GH_PAT"])
-    ghapi.clone_repo(OWNER, "ghapd.wiki", "../example-repo")
+    ghapi.clone_repo(OWNER, "pencil-pusher.wiki", "../example-repo")
 
     # do a change
     with open(os.path.join("../example-repo", "Home.md"), "a+") as fp:
         fp.write("* testing string from relative \n\n")
 
-    ghapi.full_update(OWNER, "ghapd.wiki", "../example-repo")
+    ghapi.full_update(OWNER, "pencil-pusher.wiki", "../example-repo")
 
     shutil.rmtree("../example-repo")
