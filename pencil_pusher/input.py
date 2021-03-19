@@ -1,7 +1,7 @@
 """
 File for processing and validating inputs
 """
-from ghapd.github_api import GithubAPI
+from pencil_pusher.github_api import GithubAPI
 from os import environ
 from typing import Any, Dict, Tuple
 import yaml

@@ -22,7 +22,9 @@ class FileUtil:
                     break
             if os.path.isdir(path + "/" + item):
                 result.extend(
-                    FileUtil.query_directory(path + "/" + item + '/', include_extensions)
+                    FileUtil.query_directory(
+                        path + "/" + item + "/", include_extensions
+                    )
                 )
 
         return result

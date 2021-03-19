@@ -1,4 +1,4 @@
-from ghapd.configs.manager import ConfigManager
+from pencil_pusher.configs.manager import ConfigManager
 from typing import Any, final
 from sd_utils.plugins.plugin_base import PluginBase
 

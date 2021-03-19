@@ -1,10 +1,10 @@
 from unittest import mock
-from ghapd.input import InputManager
+from pencil_pusher.input import InputManager
 import os
 
 
 @mock.patch(
-    "ghapd.input.environ",
+    "pencil_pusher.input.environ",
     {
         "INPUT_OWNER_NAME": "o_n",
         "INPUT_REPOSITORY_NAME": "r_n",
