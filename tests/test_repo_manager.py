@@ -1,9 +1,9 @@
-from ghapd.file_util import FileUtil
-from ghapd.documenter import Documenter
 import os
-from ghapd.github_api import GithubAPI
-from ghapd.repo_manager import RepoManager
 import logging
+from pencil_pusher.file_util import FileUtil
+from pencil_pusher.documenter import Documenter
+from pencil_pusher.github_api import GithubAPI
+from pencil_pusher.repo_manager import RepoManager
 
 logger = logging.getLogger("ghapi")
 logger.addHandler(logging.FileHandler("ghapi.log"))

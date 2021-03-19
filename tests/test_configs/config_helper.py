@@ -1,7 +1,7 @@
 import json
 from typing import List
 import pytest
-from ghapd.configs import config_manager
+from pencil_pusher.configs import config_manager
 
 
 def load_config(

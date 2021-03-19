@@ -1,5 +1,5 @@
-from ghapd.configs.base import ConfigParamBase
-from ghapd.configs import config_manager
+from pencil_pusher.configs.base import ConfigParamBase
+from pencil_pusher.configs import config_manager
 
 
 @config_manager.register("titles")

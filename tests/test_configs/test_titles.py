@@ -3,7 +3,7 @@ from tests.test_configs.config_helper import (
     load_and_validate_fails,
     load_config,
 )
-from ghapd.configs import config_manager
+from pencil_pusher.configs import config_manager
 
 
 def test_valid():

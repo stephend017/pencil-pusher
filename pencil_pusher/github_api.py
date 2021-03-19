@@ -2,7 +2,7 @@
 Wrapper class for managing complex github commands needed to be
 executed for this action
 """
-from ghapd.process_util import ProcessUtil
+from pencil_pusher.process_util import ProcessUtil
 from github import Github
 from github.ContentFile import ContentFile
 from github.Repository import Repository

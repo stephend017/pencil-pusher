@@ -1,6 +1,6 @@
-from ghapd.configs.base import ConfigParamBase
-from ghapd.configs.manager import ConfigManager
 from sd_utils.plugins.plugin_collector import collect_plugins
+from pencil_pusher.configs.base import ConfigParamBase
+from pencil_pusher.configs.manager import ConfigManager
 
 
 config_manager = ConfigManager()

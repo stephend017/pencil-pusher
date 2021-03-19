@@ -1,4 +1,4 @@
-from ghapd.github_api import GithubAPI
+from pencil_pusher.github_api import GithubAPI
 import os
 import shutil
 
@@ -18,7 +18,7 @@ def test_get_public_file():
         OWNER, REPO, file_path, os.environ["GH_PAT"]
     )
 
-    assert 'name: "ghapd"' in contents
+    assert 'name: "pencil_pusher"' in contents
 
 
 def test_clone_repo():
@@ -57,6 +57,7 @@ def test_full_send():
     pushed
     """
     ghapi = GithubAPI(os.environ["GH_PAT"])
+    # TODO repo has not been renamed yet
     ghapi.clone_repo(OWNER, "ghapd.wiki", "../example-repo")
     path = os.path.join(ROOT_DIR, "../example-repo")
 

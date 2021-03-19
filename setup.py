@@ -6,11 +6,11 @@ with open("README.md", "r") as file:
 
 
 setup(
-    name="ghapd",
-    version="0.0.1",
-    description="A python module",
+    name="pencil_pusher",
+    version="0.0.2",
+    description="A python package that compiles source documentation and publishes it to the repo wiki",
     long_description=readme,
-    author="myname",
-    author_email="myemail",
+    author="Stephen Davis",
+    author_email="stephenedavis17@gmail.com",
     packages=find_packages(),
 )

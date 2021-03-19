@@ -7,13 +7,13 @@ This includes
 - installing a repo's python project
 
 """
-from typing import List
-from ghapd.process_util import ProcessUtil
-from ghapd.file_util import FileUtil
 import shutil
-from ghapd.documenter import Documenter
-from ghapd.github_api import GithubAPI
 import logging
+from typing import List
+from pencil_pusher.process_util import ProcessUtil
+from pencil_pusher.file_util import FileUtil
+from pencil_pusher.documenter import Documenter
+from pencil_pusher.github_api import GithubAPI
 
 logger = logging.getLogger("rm")
 logger.addHandler(logging.FileHandler("rm.log"))

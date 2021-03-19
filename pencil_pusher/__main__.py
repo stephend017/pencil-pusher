@@ -1,8 +1,8 @@
-from ghapd.documenter import Documenter
-from ghapd.input import InputManager
-from ghapd.github_api import GithubAPI
-from ghapd.repo_manager import RepoManager
-from ghapd.configs import config_manager
+from pencil_pusher.documenter import Documenter
+from pencil_pusher.input import InputManager
+from pencil_pusher.github_api import GithubAPI
+from pencil_pusher.repo_manager import RepoManager
+from pencil_pusher.configs import config_manager
 
 
 def main():
