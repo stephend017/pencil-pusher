@@ -1,5 +1,5 @@
-name: "ghapd"
-description: "ghapd (Github Automated Python Documenter): A Github Action that creates and publishes source documentation to the repository's wiki"
+name: "pencil_pusher"
+description: "pencil_pusher: A Github Action that creates and publishes source documentation to the repository's wiki"
 author: "Stephen Davis"
 inputs:
   owner_name:
@@ -17,7 +17,7 @@ inputs:
   config_file:
     description: "This is the location of the config file. The config file is where you define which source files should be documented and how they should map to individual wiki pages"
     required: true
-    default: "ghapd.config.json"
+    default: "pencil_pusher.config.json"
 
 runs:
   using: "docker"
