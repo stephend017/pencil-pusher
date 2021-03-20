@@ -6,12 +6,6 @@ from pencil_pusher.process_util import ProcessUtil
 from github import Github
 from github.ContentFile import ContentFile
 from github.Repository import Repository
-import logging
-
-
-logger = logging.getLogger("ghapi")
-logger.addHandler(logging.FileHandler("ghapi.log"))
-logger.setLevel(logging.INFO)
 
 
 class GithubAPI:
