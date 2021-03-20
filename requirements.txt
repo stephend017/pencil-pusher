@@ -17,7 +17,7 @@ iniconfig==1.1.1
 mccabe==0.6.1
 mypy-extensions==0.4.3
 nodeenv==1.5.0
-nr.collections==0.0.1
+nr.collections==0.1.1
 nr.databind.core==0.0.22
 nr.databind.json==0.0.14
 nr.fs==1.6.3
