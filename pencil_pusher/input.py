@@ -32,10 +32,15 @@ class InputManager:
     def __init__(self):
         """"""
         self._input_definition: Dict[str, InputDefinition] = {}
+        self._provided_inputs = {
+            "GITHUB_OWNER_NAME": "",
+            "GITHUB_REPOSITORY_NAME": "",
+        }
 
     def define(self, personal_access_token: str = ""):
         """"""
         InputManager._sync_action_file(personal_access_token)
+        # user defined inputs
         with open("./action.yml", "r") as fp:
             definition = yaml.safe_load(fp)
             for input_name, input_definition in definition["inputs"].items():
@@ -44,6 +49,13 @@ class InputManager:
                     input_definition["description"],
                     input_definition["required"],
                 )
+
+        # provided inputs
+        repo_slug = environ["GITHUB_REPOSITORY"]
+        self._provided_inputs["GITHUB_OWNER_NAME"] = repo_slug.split("/")[0]
+        self._provided_inputs["GITHUB_REPOSITORY_NAME"] = repo_slug.split("/")[
+            1
+        ]
 
     def validate(self) -> Tuple[bool, str]:
         """"""
@@ -63,15 +75,27 @@ class InputManager:
 
     def get(self, name: str) -> Any:
         """"""
-        environ_key: str = InputManager._environ_key(name)
-        if environ_key not in environ:
+        environ_input_key: str = InputManager._environ_key(name)
+        environ_provided_key: str = InputManager._environ_provided_key(name)
+        if (
+            environ_input_key not in environ
+            and environ_provided_key not in self._provided_inputs
+        ):
             raise ValueError(f"Input [{name}] does not exist")
 
-        return environ[environ_key]
+        return (
+            environ[environ_input_key]
+            if environ_input_key in environ
+            else self._provided_inputs[environ_provided_key]
+        )
 
     @staticmethod
     def _environ_key(name: str) -> str:
         return f"INPUT_{name.upper()}"
+
+    @staticmethod
+    def _environ_provided_key(name: str) -> str:
+        return f"GITHUB_{name.upper()}"
 
     @staticmethod
     def _sync_action_file(personal_access_token: str = ""):
