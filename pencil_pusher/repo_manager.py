@@ -8,16 +8,11 @@ This includes
 
 """
 import shutil
-import logging
 from typing import List
 from pencil_pusher.process_util import ProcessUtil
 from pencil_pusher.file_util import FileUtil
 from pencil_pusher.documenter import Documenter
 from pencil_pusher.github_api import GithubAPI
-
-logger = logging.getLogger("rm")
-logger.addHandler(logging.FileHandler("rm.log"))
-logger.setLevel(logging.INFO)
 
 
 class RepoManager:

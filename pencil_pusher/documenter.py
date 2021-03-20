@@ -1,10 +1,4 @@
 from pencil_pusher.process_util import ProcessUtil
-import logging
-
-
-logger = logging.getLogger("documenter")
-logger.addHandler(logging.FileHandler("documenter.log"))
-logger.setLevel(logging.INFO)
 
 
 class Documenter:
