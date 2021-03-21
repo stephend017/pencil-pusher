@@ -8,6 +8,6 @@ RUN apt update -y && \
 
 WORKDIR /
 
-RUN pip3 install pencil-pusher
+RUN pip3 install pencil-pusher==1.0.0
 
 CMD ["python3", "-m", "pencil_pusher"]
