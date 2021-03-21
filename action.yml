@@ -2,15 +2,15 @@ name: "pencil_pusher"
 description: "pencil_pusher: A Github Action that creates and publishes source documentation to the repository's wiki"
 author: "Stephen Davis"
 inputs:
-  owner_name:
-    description: "The username of the repository owner"
-    required: true
-    default: ""
-  repository_name:
-    description: "The name of the repository being accessed"
-    required: true
-    default: ""
-  personal_access_token:
+  # owner_name:
+  #   description: "The username of the repository owner"
+  #   required: true
+  #   default: ""
+  # repository_name:
+  #   description: "The name of the repository being accessed"
+  #   required: true
+  #   default: ""
+  github_token:
     description: "A github personal access token with full repository permissions checked."
     required: true
     default: ""

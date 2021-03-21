@@ -15,7 +15,7 @@ def main():
 
     Documenter.install()
 
-    gh = GithubAPI(im.get("personal_access_token"))
+    gh = GithubAPI(im.get("github_token"))
 
     owner_name = im.get("owner_name")
     repository_name = im.get("repository_name")
@@ -29,7 +29,11 @@ def main():
     config_manager.validate()
 
     langs = config_manager.get_langs()
-    extensions = [ext for ext in [ext_list for _, ext_list in langs.items()]]
+    # extensions = [ext for ext in [ext_list for _, ext_list in langs.items()]]
+    extensions = []
+    for _, ext_list in langs.items():
+        for ext in ext_list:
+            extensions.append(ext)
 
     # transform titles config into usable dict
     titles = {}
