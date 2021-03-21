@@ -27,7 +27,9 @@ class TitleSuffixConfigParam(ConfigParamBase):
         config file since it is a required field
         """
         if "title_suffix" not in contents:
-            raise ValueError("title_suffix config parameter was not defined")
+            # raise ValueError("title_suffix config parameter was not defined")
+            contents["title_suffix"] = ""
+            return True
 
         if not isinstance(contents["title_suffix"], str):
             raise ValueError(
