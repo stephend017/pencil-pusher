@@ -1,14 +1,9 @@
 import os
-import logging
 from tests.test_configs.config_helper import load_and_validate, load_config
 from pencil_pusher.file_util import FileUtil
 from pencil_pusher.documenter import Documenter
 from pencil_pusher.github_api import GithubAPI
 from pencil_pusher.repo_manager import RepoManager
-
-logger = logging.getLogger("ghapi")
-logger.addHandler(logging.FileHandler("ghapi.log"))
-logger.setLevel(logging.INFO)
 
 
 def test_repo_manager_simple_config():
