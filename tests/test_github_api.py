@@ -61,7 +61,7 @@ def test_full_send():
     path = os.path.join(ROOT_DIR, "../example-repo")
 
     # do a change
-    with open(os.path.join(path, "Home.md"), "a+") as fp:
+    with open(os.path.join(path, "_testing.md"), "a+") as fp:
         fp.write("* testing string \n\n")
 
     ghapi.full_update(OWNER, "ghapd.wiki", path)
@@ -78,7 +78,7 @@ def test_full_send_relative_path():
     ghapi.clone_repo(OWNER, "pencil-pusher.wiki", "../example-repo")
 
     # do a change
-    with open(os.path.join("../example-repo", "Home.md"), "a+") as fp:
+    with open(os.path.join("../example-repo", "_testing.md"), "a+") as fp:
         fp.write("* testing string from relative \n\n")
 
     ghapi.full_update(OWNER, "pencil-pusher.wiki", "../example-repo")
