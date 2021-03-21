@@ -44,14 +44,16 @@ class GithubAPI:
             cwd=path,
         )
 
-        ProcessUtil.execute(["git", "config", "user.name", "ghapd"], cwd=path)
+        ProcessUtil.execute(
+            ["git", "config", "user.name", "pencil-pusher"], cwd=path
+        )
 
         ProcessUtil.execute(["git", "config", "user.email", "<>"], cwd=path)
 
         ProcessUtil.execute(["git", "add", "."], cwd=path)
 
         returncode: int = ProcessUtil.execute(
-            ["git", "commit", "-m", '"Auto commit by ghapd"'], cwd=path
+            ["git", "commit", "-m", '"Auto commit by pencil-pusher"'], cwd=path
         )
         if returncode == 1:
             print("all docs are up to date")
