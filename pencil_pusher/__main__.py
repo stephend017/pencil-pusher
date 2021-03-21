@@ -28,12 +28,18 @@ def main():
     config_manager.load_config_file(f'{rm._repo_path}/{im.get("config_file")}')
     config_manager.validate()
 
+    langs = config_manager.get_langs()
+    extensions = [ext for ext in [ext_list for _, ext_list in langs.items()]]
+
     # transform titles config into usable dict
     titles = {}
     for element in config_manager.get("titles"):
-        if element["source"].endswith(".py"):
-            titles[element["source"][:-3]] = element["title"]
-        else:
+        has_defined_ext = False
+        for ext in extensions:
+            if element["source"].endswith(f".{ext}"):
+                has_defined_ext = True
+                titles[element["source"][: -(len(ext) + 1)]] = element["title"]
+        if not has_defined_ext:
             titles[element["source"]] = element["title"]
 
     # only support default for now (repo_name = package_name)
@@ -42,6 +48,7 @@ def main():
         title_prefix=config_manager.get("title_prefix"),
         title_suffix=config_manager.get("title_suffix"),
         titles=titles,
+        extensions=extensions,
     )
 
     rm.publish()

@@ -7,12 +7,14 @@ This includes
 - installing a repo's python project
 
 """
+from pencil_pusher.configs.manager import ConfigManager
 import shutil
 from typing import List
 from pencil_pusher.process_util import ProcessUtil
 from pencil_pusher.file_util import FileUtil
 from pencil_pusher.documenter import Documenter
 from pencil_pusher.github_api import GithubAPI
+from pencil_pusher.configs import config_manager
 
 
 class RepoManager:
@@ -47,6 +49,7 @@ class RepoManager:
         title_prefix: str = "",
         title_suffix: str = "",
         titles: dict = {},
+        extensions: List[str] = [],
     ):
         """
         documents all given modules in the source
@@ -57,27 +60,34 @@ class RepoManager:
             # use default module name (same as repo name)
             module = self._repo
 
-        file_list = []
+        file_list = self._get_file_list(sources, extensions)
 
-        for source in sources:
-            if source.endswith("/"):
-                # source is a directory
-                directory_files = FileUtil.query_directory(
-                    f"../{self._repo}/{source[:-1]}", [".py"]
-                )
-                for sf in directory_files:
-                    relative_source_file = sf[
-                        sf.index(self._repo) + len(self._repo) + 1 : -3
-                    ]
-                    file_list.append(relative_source_file)
+        # for source in sources:
+        #     if source.endswith("/"):
+        #         # source is a directory
+        #         directory_files = FileUtil.query_directory(
+        #             f"../{self._repo}/{source[:-1]}", extensions
+        #         )
+        #         for sf in directory_files:
+        #             response = config_manager.process_lang_file(sf)
+        #             if not response[0]:
+        #                 continue
+        #             relative_source_file = sf[
+        #                 sf.index(self._repo) + len(self._repo) + 1 : -3
+        #             ]
+        #             file_list.append(relative_source_file)
 
-            else:
-                # source is a file
-                if source.endswith(".py"):
-                    # remove extension
-                    source = source[:-3]
+        #     else:
+        #         # source is a file
+        #         response = config_manager.process_lang_file(source)
+        #         if not response[0]:
+        #             continue
+        #         for ext in extensions:
+        #             if source.endswith(f".{ext}"):
+        #                 # remove extension
+        #                 source = source[: -(len(ext) + 1)]
 
-                file_list.append(source)
+        #             file_list.append(source)
 
         for f in file_list:
             module_python_path = f.replace("/", ".")
@@ -124,3 +134,36 @@ class RepoManager:
         Returns the relative path of the wiki repo
         """
         return f"../{self._repo}-wiki"
+
+    def _get_file_list(self, sources, extensions):
+        """
+        """
+        file_list = []
+
+        for source in sources:
+            if source.endswith("/"):
+                # source is a directory
+                directory_files = FileUtil.query_directory(
+                    f"../{self._repo}/{source[:-1]}", extensions
+                )
+                for sf in directory_files:
+                    response = config_manager.process_lang_file(sf)
+                    if not response[0]:
+                        continue
+                    relative_source_file = sf[
+                        sf.index(self._repo) + len(self._repo) + 1 : -3
+                    ]
+                    file_list.append(relative_source_file)
+
+            else:
+                # source is a file
+                response = config_manager.process_lang_file(source)
+                if not response[0]:
+                    continue
+                for ext in extensions:
+                    if source.endswith(f".{ext}"):
+                        # remove extension
+                        source = source[: -(len(ext) + 1)]
+
+                    file_list.append(source)
+        return file_list

@@ -7,7 +7,6 @@ class ConfigParamBase(PluginBase):
     def __init__(self):
         self._is_defined = False
 
-    @final
     def on_find(self, data: Any) -> Any:
         # return super().on_find(data=data)
         if not self._is_defined:

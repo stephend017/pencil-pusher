@@ -19,6 +19,23 @@ class PythonConfigParam(ConfigParamBase):
         "include_main_file": (bool, False, False),
     }
 
+    def on_find(self, data: Any) -> Any:
+        if data["type"] != ConfigManager.PROCESS_LANG_FILE:
+            return super().on_find(data)
+
+        if not data["contents"]["python"]["include_init_files"] and data[
+            "file_path"
+        ].endswith("__init__.py"):
+            return (False, data["file_path"])
+        if not data["contents"]["python"]["include_main_file"] and data[
+            "file_path"
+        ].endswith("__main__.py"):
+            return (False, data["file_path"])
+        return (True, data["file_path"])
+
+    def on_register(self, data: Any):
+        data["manager"].add_lang("python", ["py"])
+
     def on_iterate(self, data: Any):
         """
         This is the validate function

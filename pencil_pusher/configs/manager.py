@@ -1,5 +1,5 @@
 import json
-from typing import Any
+from typing import Any, List, Tuple
 from sd_utils.plugins.plugin_manager import PluginManager
 
 
@@ -7,9 +7,11 @@ class ConfigManager(PluginManager):
 
     VALIDATE = "validate"
     GET = "get"
+    PROCESS_LANG_FILE = "process_lang_file"
 
     def __init__(self):
         self._config_file_contents = None
+        self._languages = {}
         super().__init__()
 
     def validate(self):
@@ -39,6 +41,31 @@ class ConfigManager(PluginManager):
             },
         )
 
+    def process_lang_file(self, file_path: str) -> Tuple[bool, str]:
+        """
+        processes a language file based on defined configurations
+
+        Returns:
+            Tuple[bool, str]: the first value is if the file should be included,
+                the second value is the new name of the file if it should be
+                included.
+        """
+        ext = file_path[file_path.index(".") + 1 :]
+        lang_name = ""
+        for lang, exts in self._languages.items():
+            for dext in exts:
+                if ext == dext:
+                    lang_name = lang
+                    break
+        return self.run(
+            lang_name,
+            on_find_params={
+                "type": ConfigManager.PROCESS_LANG_FILE,
+                "contents": self._config_file_contents,
+                "file_path": file_path,
+            },
+        )
+
     def load_config_file(self, file_path: str):
         """
         """
@@ -52,3 +79,14 @@ class ConfigManager(PluginManager):
     def get_on_find_params(self, name: str, **kwargs) -> Any:
         # return super().get_on_find_params(name, **kwargs)
         return {"name": name, **kwargs}
+
+    def get_on_register_params(self, name: str, **kwargs) -> Any:
+        return {"manager": self}
+
+    def add_lang(self, lang_name: str, extensions: List[str]):
+        """
+        """
+        self._languages[lang_name] = extensions
+
+    def get_langs(self):
+        return self._languages
