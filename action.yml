@@ -10,7 +10,8 @@ inputs:
     description: "This is the location of the config file. The config file is where you define which source files should be documented and how they should map to individual wiki pages"
     required: true
     default: "pencil_pusher.config.json"
-
+icon: "file"
+color: "white"
 runs:
   using: "docker"
   image: "Dockerfile"
