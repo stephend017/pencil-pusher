@@ -9,6 +9,7 @@ def load_config(
     title_prefix="valid_prefix",
     title_suffix="valid_suffix",
     titles=[{"source": "mypath/mysourcefile.py", "title": "mynewtitle"}],
+    python={"include_init_files": False, "include_main_file": True},
     exclude: List[str] = [],
 ):
     """
@@ -26,6 +27,7 @@ def load_config(
             "title_prefix": title_prefix,
             "title_suffix": title_suffix,
             "titles": titles,
+            "python": python,
         }
         for element in exclude:
             del data[element]

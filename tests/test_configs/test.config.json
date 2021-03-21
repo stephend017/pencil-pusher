@@ -1,1 +1,1 @@
-{"sources": ["path1/*", "/path1/subpath1/", "/path1/subpath1/file1.py"], "title_prefix": "valid_prefix", "title_suffix": "valid_suffix", "titles": [{"source": "mysourcefile.py", "title": "wowsuchdocs"}]}
+{"sources": ["path1/*", "/path1/subpath1/", "/path1/subpath1/file1.py"], "title_prefix": "valid_prefix", "title_suffix": "valid_suffix", "titles": [{"source": "mysourcefile.py", "title": "wowsuchdocs"}], "python": {"include_init_files": false, "include_main_file": true}}
