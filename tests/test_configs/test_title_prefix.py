@@ -26,7 +26,7 @@ def test_not_defined():
     """
     """
     load_config(exclude=["title_prefix"])
-    load_and_validate_fails()
+    load_and_validate()
 
 
 def test_get_title_prefix():
@@ -39,3 +39,13 @@ def test_get_title_prefix():
 
     response = config_manager.get("title_prefix")
     assert response == expected
+
+
+def test_get_title_prefix_default():
+    """
+    """
+    load_config(exclude=["title_prefix"])
+    load_and_validate()
+
+    response = config_manager.get("title_prefix")
+    assert response == ""

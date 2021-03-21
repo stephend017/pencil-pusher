@@ -27,7 +27,9 @@ class TitlePrefixConfigParam(ConfigParamBase):
         config file since it is a required field
         """
         if "title_prefix" not in contents:
-            raise ValueError("title_prefix config parameter was not defined")
+            # set default value
+            contents["title_prefix"] = ""
+            return True
 
         if not isinstance(contents["title_prefix"], str):
             raise ValueError(
