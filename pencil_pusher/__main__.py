@@ -15,7 +15,7 @@ def main():
 
     Documenter.install()
 
-    gh = GithubAPI(im.get("personal_access_token"))
+    gh = GithubAPI(im.get("github_token"))
 
     owner_name = im.get("owner_name")
     repository_name = im.get("repository_name")
