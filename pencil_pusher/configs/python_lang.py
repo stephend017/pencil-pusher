@@ -17,6 +17,7 @@ class PythonConfigParam(ConfigParamBase):
         # param name          type   requried   default
         "include_init_files": (bool, False, False),
         "include_main_file": (bool, False, False),
+        "module": (str, False, ""),
     }
 
     def on_find(self, data: Any) -> Any:

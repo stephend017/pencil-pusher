@@ -49,6 +49,9 @@ def main():
     # only support default for now (repo_name = package_name)
     rm.document(
         sources=config_manager.get("sources"),
+        module=""
+        if not config_manager.has("python")
+        else config_manager.get("python")["module"],
         title_prefix=config_manager.get("title_prefix"),
         title_suffix=config_manager.get("title_suffix"),
         titles=titles,

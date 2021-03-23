@@ -71,6 +71,17 @@ class ConfigManager(PluginManager):
             },
         )
 
+    def has(self, name: str) -> bool:
+        """
+        Returns true if a given config is defined (false otherwise)
+
+        Args:
+            name (str): the name of the config being searched for
+
+        Returns:
+            bool: True if the config exists, false otherwise
+        """
+
     def process_lang_file(self, file_path: str) -> Tuple[bool, str]:
         """
         processes a language file based on defined configurations
