@@ -1,13 +1,29 @@
 import json
-from typing import Any, List, Tuple
+from typing import Any, Dict, List, Tuple
 from sd_utils.plugins.plugin_manager import PluginManager
 
 
 class ConfigManager(PluginManager):
+    """
+    Manager for all config variables. Provides interface
+    for loading, validating and getting configs from a
+    file.
+    """
 
     VALIDATE = "validate"
+    """
+    constant for validate action
+    """
+
     GET = "get"
+    """
+    constant for get action.
+    """
+
     PROCESS_LANG_FILE = "process_lang_file"
+    """
+    constant for process lang file action
+    """
 
     def __init__(self):
         self._config_file_contents = None
@@ -16,6 +32,10 @@ class ConfigManager(PluginManager):
 
     def validate(self):
         """
+        Validates all the configs in the loaded config file
+
+        Raises:
+            ValueError: if the config file is not loaded
         """
         if self._config_file_contents is None:
             raise ValueError("Config file was not loaded")
@@ -27,8 +47,18 @@ class ConfigManager(PluginManager):
             },
         )
 
-    def get(self, name: str):
+    def get(self, name: str) -> Any:
         """
+        Gets a config defined by `name`
+
+        Raises:
+            ValueError: if the config file is not loaded
+
+        Args:
+            name (str): the name of the config being retrieved
+
+        Returns:
+            Any: the value of the config
         """
         if self._config_file_contents is None:
             raise ValueError("Config file was not loaded")
@@ -44,6 +74,10 @@ class ConfigManager(PluginManager):
     def process_lang_file(self, file_path: str) -> Tuple[bool, str]:
         """
         processes a language file based on defined configurations
+
+        Args:
+            file_path (str): the path of the config file to load.
+                (must be a local location)
 
         Returns:
             Tuple[bool, str]: the first value is if the file should be included,
@@ -68,16 +102,20 @@ class ConfigManager(PluginManager):
 
     def load_config_file(self, file_path: str):
         """
+        Loads a given config file (must be a local
+        file location)
+
+        Args:
+            file_path (str): path of the config file
+                (must be a local location)
         """
         with open(file_path, "r") as fp:
             self._config_file_contents = json.load(fp)
 
     def get_on_search_params(self, name: str, **kwargs) -> Any:
-        # return super().get_on_search_params(name, **kwargs)
         return {"name": name, **kwargs}
 
     def get_on_find_params(self, name: str, **kwargs) -> Any:
-        # return super().get_on_find_params(name, **kwargs)
         return {"name": name, **kwargs}
 
     def get_on_register_params(self, name: str, **kwargs) -> Any:
@@ -85,8 +123,18 @@ class ConfigManager(PluginManager):
 
     def add_lang(self, lang_name: str, extensions: List[str]):
         """
+        Adds a language and its relevant file extensions to
+        this config manager.
         """
         self._languages[lang_name] = extensions
 
-    def get_langs(self):
+    def get_langs(self) -> Dict[str, List[str]]:
+        """
+        Returns a dictionary which maps each language to
+        its extensions
+
+        Returns:
+            Dict[str, List[str]]: a dict of languages and their
+                file extensions
+        """
         return self._languages

@@ -30,7 +30,9 @@ class InputDefinition:
 
 class InputManager:
     def __init__(self):
-        """"""
+        """
+        Manager class for input provided in the action file
+        """
         self._input_definition: Dict[str, InputDefinition] = {}
         self._provided_inputs = {
             "GITHUB_OWNER_NAME": "",
@@ -38,7 +40,15 @@ class InputManager:
         }
 
     def define(self, personal_access_token: str = ""):
-        """"""
+        """
+        Defines the expected inputs from the action file
+        located in the pencil-pusher repo
+
+        Args:
+            personal_access_token (str): the github token
+                to use for authentication or to increase
+                the rate limit
+        """
         InputManager._sync_action_file(personal_access_token)
         # user defined inputs
         with open("./action.yml", "r") as fp:
@@ -58,7 +68,14 @@ class InputManager:
         ]
 
     def validate(self) -> Tuple[bool, str]:
-        """"""
+        """
+        Validates that all inputs in the given action
+        file match those of the defined action file
+
+        Returns:
+            Tuple[bool, str]: a flag if validation succeeded
+                and a message why it either succeeded or failed
+        """
         for key, value in self._input_definition.items():
             environ_key: str = InputManager._environ_key(key)
             if environ_key not in environ:
@@ -74,7 +91,12 @@ class InputManager:
         return True, "Successfully validated all inputs"
 
     def get(self, name: str) -> Any:
-        """"""
+        """
+        Gets an input by name
+
+        Args:
+            name (str): the name of the input variable
+        """
         environ_input_key: str = InputManager._environ_key(name)
         environ_provided_key: str = InputManager._environ_provided_key(name)
         if (
@@ -100,6 +122,7 @@ class InputManager:
     @staticmethod
     def _sync_action_file(personal_access_token: str = ""):
         """
+        internal method for syncing the action file
         """
         content = GithubAPI.get_public_file(
             "stephend017", "ghapd", "action.yml", personal_access_token
