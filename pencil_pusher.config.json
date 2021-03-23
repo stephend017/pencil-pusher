@@ -1,4 +1,24 @@
 {
-    "sources": [],
-    "python": {}
+    "sources": [
+        "pencil_pusher/github_api.py",
+        "pencil_pusher/file_util.py",
+        "pencil_pusher/process_util.py"
+    ],
+    "python": {
+        "module": "pencil_pusher"
+    },
+    "titles": [
+        {
+            "source": "pencil_pusher/github_api.py",
+            "title": "Github API"
+        },
+        {
+            "source": "pencil_pusher/file_util.py",
+            "title": "File API"
+        },
+        {
+            "source": "pencil_pusher/process_util.py",
+            "title": "Process API"
+        }
+    ]
 }
