@@ -9,7 +9,11 @@ def load_config(
     title_prefix="valid_prefix",
     title_suffix="valid_suffix",
     titles=[{"source": "mypath/mysourcefile.py", "title": "mynewtitle"}],
-    python={"include_init_files": False, "include_main_file": True},
+    python={
+        "include_init_files": False,
+        "include_main_file": True,
+        "module": "mymod",
+    },
     exclude: List[str] = [],
 ):
     """

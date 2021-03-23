@@ -34,7 +34,11 @@ def test_invalid_subtype_init():
     """
     """
     load_config(
-        python={"include_init_files": "no", "include_main_file": False}
+        python={
+            "include_init_files": "no",
+            "include_main_file": False,
+            "module": "mymodule",
+        }
     )
     load_and_validate_fails()
 
@@ -43,7 +47,24 @@ def test_invalid_subtype_main():
     """
     """
     load_config(
-        python={"include_init_files": False, "include_main_file": "no"}
+        python={
+            "include_init_files": False,
+            "include_main_file": "no",
+            "module": "mymodule",
+        }
+    )
+    load_and_validate_fails()
+
+
+def test_invalid_subtype_module():
+    """
+    """
+    load_config(
+        python={
+            "include_init_files": False,
+            "include_main_file": False,
+            "module": 6,
+        }
     )
     load_and_validate_fails()
 
@@ -51,21 +72,34 @@ def test_invalid_subtype_main():
 def test_missing_subtype_main():
     """
     """
-    load_config(python={"include_init_files": False})
+    load_config(python={"include_init_files": False, "module": "mymod"})
     load_and_validate()
 
 
 def test_missing_subtype_init():
     """
     """
-    load_config(python={"include_main_file": False})
+    load_config(python={"include_main_file": False, "module": "mymod"})
+    load_and_validate()
+
+
+def test_missing_subtype_module():
+    """
+    """
+    load_config(
+        python={"include_main_file": False, "include_init_files": False}
+    )
     load_and_validate()
 
 
 def test_get_python():
     """
     """
-    expected = {"include_init_files": True, "include_main_file": True}
+    expected = {
+        "include_init_files": True,
+        "include_main_file": True,
+        "module": "mymod",
+    }
 
     load_config(python=expected)
     load_and_validate()

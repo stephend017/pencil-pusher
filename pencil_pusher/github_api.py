@@ -11,6 +11,12 @@ from github.Repository import Repository
 class GithubAPI:
     def __init__(self, personal_access_token: str = ""):
         """
+        Creates a new GithubAPI wrapper object for computing
+        complex github operations
+
+        Args:
+            personal_access_token (str): the github token to use
+                for authentication.
         """
         self._has_token = personal_access_token != ""
         self._pat = personal_access_token
@@ -21,6 +27,12 @@ class GithubAPI:
 
     def clone_repo(self, owner: str, repo: str, local_path: str = ""):
         """
+        Clones a given github repo to a given local file path
+
+        Args:
+            owner (str): the owner of the repo
+            repo (str): the name of the repo
+            local_path (str): the local path to store this repo
         """
         url = f"https://github.com/{owner}/{repo}.git"
         if self._has_token:
@@ -31,7 +43,14 @@ class GithubAPI:
     def full_update(self, owner: str, repo: str, path: str):
         """
         stages, commits and pushes all changes to a git repo
-        in the given directory
+        in the given directory.
+
+        NOTE: will not create a commit if no files were changed
+
+        Args:
+            owner (str): the owner of the repo
+            repo (str): the name of the repo
+            path (str): the location of the repo
         """
         ProcessUtil.execute(
             [
@@ -67,6 +86,14 @@ class GithubAPI:
     ) -> str:
         """
         Gets a file from a public repo
+
+        Args:
+            owner (str): the owner the repo being queried
+            repo (str): the name of the repo being queried
+            file_path (str): the relative path of the file
+                in the repo being queried
+            personal_access_token (str): the github token used
+                for authentication, required for private repos
         """
         g = (
             Github()
@@ -79,6 +106,8 @@ class GithubAPI:
 
     def _require_token(self):
         """
+        Simple function that raises a Value error if a
+        token is not defined but is required for the operation
         """
         if not self._has_token:
             raise ValueError(
