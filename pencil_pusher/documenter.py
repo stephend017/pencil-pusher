@@ -26,7 +26,7 @@ class Documenter:
             title (str): the title of the document file to output
             output_dir (str): the directory to write the output file to
         """
-        options = "{renderer: {type: markdown,descriptive_class_title: false,render_toc: true}}"
+        options = '{renderer: {type: markdown,descriptive_class_title: false,render_toc: true, header_level_by_type: {"Module": 1,"Class": 2,"Method": 3,"Function": 2,"Data": 2}}}'
         if not output_dir.endswith("/"):
             output_dir += "/"
 
