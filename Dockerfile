@@ -9,6 +9,6 @@ RUN apt update -y && \
 WORKDIR /
 
 # no version is set here, only set version on releases
-RUN pip3 install pencil-pusher==1.2.0
+RUN pip3 install pencil-pusher==1.2.1
 
 CMD ["python3", "-m", "pencil_pusher"]
