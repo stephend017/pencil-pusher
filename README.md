@@ -6,4 +6,4 @@ A Github Action that creates and publishes source documentation to the repositor
 - python
 - [pydoc-markdown](https://pydoc-markdown.readthedocs.io/en/latest/)
 
-> this project uses `snake-charmer` for automatic releases
+> this project uses [`snake-charmer`](https://github.com/stephend017/snake-charmer) for automatic releases
