@@ -5,3 +5,5 @@ A Github Action that creates and publishes source documentation to the repositor
 - docker
 - python
 - [pydoc-markdown](https://pydoc-markdown.readthedocs.io/en/latest/)
+
+> this project uses `snake-charmer` for automatic releases
