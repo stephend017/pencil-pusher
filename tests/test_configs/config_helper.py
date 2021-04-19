@@ -15,6 +15,7 @@ def load_config(
         "module": "mymod",
     },
     exclude: List[str] = [],
+    sidebar: bool = False,
 ):
     """
     Loads a config into the test config file,
@@ -32,6 +33,7 @@ def load_config(
             "title_suffix": title_suffix,
             "titles": titles,
             "python": python,
+            "sidebar": sidebar,
         }
         for element in exclude:
             del data[element]
