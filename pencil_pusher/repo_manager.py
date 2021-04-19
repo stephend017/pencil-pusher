@@ -102,7 +102,11 @@ class RepoManager:
         if sidebar:
             toc = Documenter.build_toc(file_map.keys())
             Documenter.generate_sidebar(
-                toc, file_map, output_dir=self._wiki_path
+                toc,
+                file_map,
+                self._owner,
+                self._repo,
+                output_dir=self._wiki_path,
             )
 
     def publish(self):
