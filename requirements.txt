@@ -31,7 +31,7 @@ nr.utils.re==0.1.1
 packaging==20.9
 pathspec==0.8.1
 pluggy==0.13.1
-pre-commit==2.12.0
+pre-commit==2.12.1
 py==1.10.0
 pycodestyle==2.6.0
 pydoc-markdown==3.10.1
