@@ -128,6 +128,17 @@ class Documenter:
     @staticmethod
     def toc_entry(title: str, path: str, level: int = 0):
         """
+        Creates a table of contents entry
+        
+        This entry is a listed link to the given page. 
+        It is indented and the title of the link matches
+        the title of the page
+        
+        Args:
+            title (str): the title of the wiki page
+            path (str): the full url to the wiki page
+            level (int): the level of indentation (0 
+                is no indentation)
         """
         initial_spacing = " " * level * 2
 
