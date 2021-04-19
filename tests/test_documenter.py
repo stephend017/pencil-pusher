@@ -18,17 +18,14 @@ def test_toc():
     """
 
     test_files = [
-        "pencil_pusher.configs.base.py",
-        "pencil_pusher.configs.manager.py",
-        "pencil_pusher.configs.python_lang.py",
-        "pencil_pusher.documenter.py",
-        "pencil_pusher.input.py",
+        "pencil_pusher.configs.base",
+        "pencil_pusher.configs.manager",
+        "pencil_pusher.configs.python_lang",
+        "pencil_pusher.documenter",
+        "pencil_pusher.input",
     ]
 
-    test_file_map = {
-        ".".join(i.split(".")[:-1]): ".".join(i.split(".")[:-1])
-        for i in test_files
-    }
+    test_file_map = {i: i for i in test_files}
     toc_tree = Documenter.build_toc(test_files)
 
     assert toc_tree == {

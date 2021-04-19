@@ -45,7 +45,8 @@ class Documenter:
 
         Args:
             file_list (List[str]): the list of files to include
-                the in the toc
+                the in the toc. this should not include the file
+                extension
 
         Returns:
             Dict[str, str]: the table of contents ordered as a
@@ -58,8 +59,7 @@ class Documenter:
 
             sub_heirarchy = hierarchy
 
-            # exclude file extension
-            for part in parts[:-1]:
+            for part in parts:
                 if part not in sub_heirarchy:
                     sub_heirarchy[part] = {}
                 sub_heirarchy = sub_heirarchy[part]
