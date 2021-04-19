@@ -36,6 +36,8 @@ def test_toc():
         }
     }
 
-    Documenter.generate_sidebar(toc_tree, test_file_map)
+    Documenter.generate_sidebar(
+        toc_tree, test_file_map, "stephend017", "pencil-pusher"
+    )
 
     os.remove("./_Sidebar.md")

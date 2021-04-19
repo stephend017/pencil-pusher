@@ -68,7 +68,11 @@ class Documenter:
 
     @staticmethod
     def generate_sidebar(
-        toc: Dict[str, str], file_map: Dict[str, str], output_dir: str = "./"
+        toc: Dict[str, str],
+        file_map: Dict[str, str],
+        owner: str,
+        repo: str,
+        output_dir: str = "./",
     ):
         """
 
@@ -80,7 +84,7 @@ class Documenter:
         -- custom TOC
         """
         fp = open(f"{output_dir}_Sidebar.md", "w")
-        Documenter.sidebar_helper("", toc, file_map, fp, output_dir)
+        Documenter.sidebar_helper("", toc, file_map, fp, owner, repo)
 
         fp.close()
 
@@ -90,7 +94,8 @@ class Documenter:
         toc: Dict[str, str],
         file_map: Dict[str, str],
         fp,
-        output_dir: str = "./",
+        owner: str,
+        repo: str,
         level: int = 0,
     ):
         """
@@ -102,7 +107,9 @@ class Documenter:
                 # no sub entries, write to TOC
                 fp.write(
                     Documenter.toc_entry(
-                        entry, f"{output_dir}{file_map[path]}.md", level
+                        entry,
+                        f"https://github.com/{owner}/{repo}/wiki/{file_map[path]}",
+                        level,
                     )
                     + "\n"
                 )
@@ -112,7 +119,7 @@ class Documenter:
                     included.append(entry)
                     fp.write(Documenter.toc_header(entry, level) + "\n")
                 Documenter.sidebar_helper(
-                    path, value, file_map, fp, output_dir, level + 1
+                    path, value, file_map, fp, owner, repo, level + 1
                 )
 
     @staticmethod
