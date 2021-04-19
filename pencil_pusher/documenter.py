@@ -79,6 +79,9 @@ class Documenter:
         -- References
         -- custom TOC
         """
+        if not output_dir.endswith("/"):
+            output_dir += "/"
+
         fp = open(f"{output_dir}_Sidebar.md", "w")
         Documenter.sidebar_helper("", toc, file_map, fp, output_dir)
 
