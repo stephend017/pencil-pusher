@@ -56,6 +56,7 @@ def main():
         title_suffix=config_manager.get("title_suffix"),
         titles=titles,
         extensions=extensions,
+        sidebar=config_manager.get("sidebar"),
     )
 
     rm.publish()

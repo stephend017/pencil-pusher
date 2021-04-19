@@ -1,3 +1,4 @@
+from typing import Dict, List, Set
 from pencil_pusher.process_util import ProcessUtil
 
 
@@ -35,3 +36,98 @@ class Documenter:
             ["pydoc-markdown", "-m", f"{module}", options], stdout=fp
         )
         fp.close()
+
+    @staticmethod
+    def build_toc(file_list: List[str]) -> Dict[str, str]:
+        """
+        Builds the table of contents from a file list
+        assumes that the files are in python import notation
+
+        Args:
+            file_list (List[str]): the list of files to include
+                the in the toc
+
+        Returns:
+            Dict[str, str]: the table of contents ordered as a
+                dictionary
+
+        """
+        hierarchy = {}
+        for file_path in file_list:
+            parts = file_path.split(".")
+
+            sub_heirarchy = hierarchy
+
+            # exclude file extension
+            for part in parts[:-1]:
+                if part not in sub_heirarchy:
+                    sub_heirarchy[part] = {}
+                sub_heirarchy = sub_heirarchy[part]
+
+        return hierarchy
+
+    @staticmethod
+    def generate_sidebar(
+        toc: Dict[str, str], file_map: Dict[str, str], output_dir: str = "./"
+    ):
+        """
+
+        The Sidebar takes the following format
+
+        -- user-defined toc (not implemented)
+
+        -- References
+        -- custom TOC
+        """
+        fp = open(f"{output_dir}_Sidebar.md", "w")
+        Documenter.sidebar_helper("", toc, file_map, fp, output_dir)
+
+        fp.close()
+
+    @staticmethod
+    def sidebar_helper(
+        prefix: str,
+        toc: Dict[str, str],
+        file_map: Dict[str, str],
+        fp,
+        output_dir: str = "./",
+        level: int = 0,
+    ):
+        """
+        """
+        included = []
+        for entry, value in toc.items():
+            path = entry if prefix == "" else f"{prefix}.{entry}"
+            if value == {}:
+                # no sub entries, write to TOC
+                fp.write(
+                    Documenter.toc_entry(
+                        entry, f"{output_dir}{file_map[path]}.md", level
+                    )
+                    + "\n"
+                )
+            else:
+                # TODO make this generate a header page
+                if entry not in included:
+                    included.append(entry)
+                    fp.write(Documenter.toc_header(entry, level) + "\n")
+                Documenter.sidebar_helper(
+                    path, value, file_map, fp, output_dir, level + 1
+                )
+
+    @staticmethod
+    def toc_entry(title: str, path: str, level: int = 0):
+        """
+        """
+        initial_spacing = " " * level * 2
+
+        return f"{initial_spacing}- **[{title}]({path})**"
+
+    @staticmethod
+    def toc_header(title: str, level: int = 0):
+        """
+        """
+        initial_spacing = " " * level * 2
+
+        # TODO add header page link
+        return f"{initial_spacing}- **[{title}]()**"

@@ -10,7 +10,7 @@ with open("README.md", "r") as f:
 
 setup(
     name="pencil_pusher",
-    version="1.3.1",
+    version="1.4.0",
     description="A python package that compiles source documentation and publishes it to the repo wiki",
     long_description=readme,
     long_description_content_type="text/markdown",

@@ -8,6 +8,7 @@ This includes
 
 """
 import shutil
+from subprocess import check_output
 from typing import List
 from pencil_pusher.process_util import ProcessUtil
 from pencil_pusher.file_util import FileUtil
@@ -57,6 +58,7 @@ class RepoManager:
         title_suffix: str = "",
         titles: dict = {},
         extensions: List[str] = [],
+        sidebar: bool = False,
     ):
         """
         documents all given modules in the source
@@ -77,6 +79,7 @@ class RepoManager:
             module = self._repo
 
         file_list = self._get_file_list(sources, extensions)
+        file_map = {}
 
         for f in file_list:
             module_python_path = f.replace("/", ".")
@@ -88,10 +91,18 @@ class RepoManager:
             else:
                 title = module_python_path
 
+            file_map[module_python_path] = title_prefix + title + title_suffix
+
             Documenter.generate(
                 module_python_path,
                 title_prefix + title + title_suffix,
                 self._wiki_path,
+            )
+
+        if sidebar:
+            toc = Documenter.build_toc(file_map.keys())
+            Documenter.generate_sidebar(
+                toc, file_map, output_dir=self._wiki_path
             )
 
     def publish(self):
