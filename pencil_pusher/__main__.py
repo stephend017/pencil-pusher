@@ -1,35 +1,38 @@
 from pencil_pusher.documenter import Documenter
-from pencil_pusher.input import InputManager
 from pencil_pusher.github_api import GithubAPI
 from pencil_pusher.repo_manager import RepoManager
 from pencil_pusher.configs import config_manager
+from sd_utils.github_actions.action import GithubAction
+import os
 
 
 def main():
-    im = InputManager()
-    im.define()
-    response = im.validate()
-
-    if not response[0]:
-        raise ValueError(response[1])
+    ga = GithubAction(
+        "stephend017",
+        "pencil-pusher",
+        os.environ,
+        os.environ["INPUT_GITHUB_TOKEN"],
+        {"owner_name", "repository_name"},
+    )
 
     Documenter.install()
 
-    gh = GithubAPI(im.get("github_token"))
+    gh = GithubAPI(ga.inputs["github_token"])
 
-    owner_name = im.get("owner_name")
-    repository_name = im.get("repository_name")
+    owner_name = ga.builtins["owner_name"]
+    repository_name = ga.builtins["repository_name"]
 
     rm = RepoManager(owner_name, repository_name, gh)
     rm.setup()
     rm.install()
 
     # load configs for the given file
-    config_manager.load_config_file(f'{rm._repo_path}/{im.get("config_file")}')
+    config_manager.load_config_file(
+        f'{rm._repo_path}/{ga.inputs["config_file"]}'
+    )
     config_manager.validate()
 
     langs = config_manager.get_langs()
-    # extensions = [ext for ext in [ext_list for _, ext_list in langs.items()]]
     extensions = []
     for _, ext_list in langs.items():
         for ext in ext_list:
