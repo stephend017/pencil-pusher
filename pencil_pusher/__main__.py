@@ -12,7 +12,7 @@ def main():
         "pencil-pusher",
         os.environ,
         os.environ["INPUT_GITHUB_TOKEN"],
-        {"owner_name", "repository_name"},
+        {"repository"},
     )
 
     Documenter.install()
