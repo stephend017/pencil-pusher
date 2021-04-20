@@ -19,8 +19,8 @@ def main():
 
     gh = GithubAPI(ga.inputs["github_token"])
 
-    owner_name = ga.builtins["owner_name"]
-    repository_name = ga.builtins["repository_name"]
+    owner_name = ga.builtins["repository"].split("/")[0]
+    repository_name = ga.builtins["repository"].split("/")[1]
 
     rm = RepoManager(owner_name, repository_name, gh)
     rm.setup()
