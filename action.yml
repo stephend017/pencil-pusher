@@ -8,7 +8,7 @@ inputs:
     default: ""
   config_file:
     description: "This is the location of the config file. The config file is where you define which source files should be documented and how they should map to individual wiki pages"
-    required: true
+    required: false
     default: "pencil_pusher.config.json"
 branding:
   icon: "file"
