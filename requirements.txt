@@ -52,4 +52,4 @@ urllib3==1.26.4
 virtualenv==20.4.3
 watchdog==1.0.2
 wrapt==1.12.1
-sd_utils==0.3.0
+sd_utils==0.3.1
