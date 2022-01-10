@@ -24,7 +24,7 @@ nr.fs==1.6.3
 nr.interface==0.0.4
 nr.metaclass==0.0.6
 nr.parsing.date==0.6.1
-nr.pylang.utils==0.0.4
+nr.pylang.utils==0.1.3
 nr.stream==0.0.5
 nr.sumtype==0.0.4
 nr.utils.re==0.1.1
