@@ -21,7 +21,7 @@ nr.collections==0.0.1
 nr.databind.core==0.0.22
 nr.databind.json==0.0.14
 nr.fs==1.6.3
-nr.interface==0.0.4
+nr.interface==0.0.5
 nr.metaclass==0.0.6
 nr.parsing.date==0.6.1
 nr.pylang.utils==0.0.4
