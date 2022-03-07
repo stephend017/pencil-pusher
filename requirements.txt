@@ -34,7 +34,7 @@ pluggy==0.13.1
 pre-commit==2.12.1
 py==1.10.0
 pycodestyle==2.6.0
-pydoc-markdown==3.10.1
+pydoc-markdown==4.6.1
 pyflakes==2.2.0
 PyGithub==1.54.1
 PyJWT==1.7.1
